@@ -304,6 +304,16 @@ $(document).ready(function() {
         "fika_in_7.webp"
     ];
 
+    const seguirMin = [
+        "seguir_in_1.webp",
+        "seguir_in_2.webp",
+        "seguir_in_3.webp",
+        "seguir_in_4.webp",
+        "seguir_in_5.webp",
+        "seguir_in_6.webp",
+        "seguir_in_7.webp"
+    ];
+
     let currentImageFiles = [];
 
     function obtenerMedios(projId) {
@@ -324,6 +334,8 @@ $(document).ready(function() {
                 return novaMin;
             case 'fika':
                 return fikaMin;
+            case 'seguir':
+                return seguirMin;
             default:
                 return [];
         }
