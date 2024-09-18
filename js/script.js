@@ -290,8 +290,10 @@ $(document).ready(function() {
         "nova_in_1.mp4",
         "nova_in_2.mp4",
         "nova_in_3.mp4",
-        "nova_in_4.mp4",
-        "nova_in_5.mp4"
+        "nova_in_4.webp",
+        "nova_in_5.mp4",
+        "nova_in_6.mp4",
+        "nova_in_7.webp",
     ];
 
     const fikaMin = [
