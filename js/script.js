@@ -799,68 +799,63 @@ $(document).ready(function() {
             $('#index').css('pointer-events', 'none');
         });
 
-        $('.playground').removeClass('hidden');
+        $('#playground').removeClass('hidden');
 
         $('#playgr').css({
             "text-decoration-color": "#000"
+        });
+        $('#projs').css({
+            "text-decoration-color": ""
         });
 
         $('#forscroll').hide();
 
 
+        const $playground = $('#playground');
+        const pgrows = 7;
+        const pgcols = 7;
+        const totalPgCells = rows * cols;
+        let cellNumber = 1;
+
+        const images = [
+            'pg_yorokobu_1.webp', 
+            'pg_yorokobu_2.webp', 
+            'pg_yorokobu_3.webp',
+            'pg_cortazar_1.webp', 
+            'pg_cortazar_2.webp', 
+            'pg_cortazar_3.webp', 
+            'pg_cortazar_4.webp',
+            'pg_trastulo_1.webp',
+            'pg_navajeros_1.webp', 
+            'pg_navajeros_2.webp', 
+            'pg_inapa.webp',
+            'pg_kanai.webp',
+        ];
+
+        function getImageForCell(index) {
+            return images[index % images.length];
+        }
+
+        for (let row = 0; row < pgrows; row++) {
+            for (let col = 0; col < pgcols; col++) {
+                const $cell = $('<div class="pgcell"></div>');
+                $cell.attr('data-number', `[${cellNumber}]`);
+                const imgSrc = `media/pg/${getImageForCell(cellNumber - 1)}`;
+                const $img = $('<img>').attr('src', imgSrc);
+                $cell.append($img);
+
+                $cell.on('mouseenter', function() {
+                    $img.css('opacity', $img.css('opacity') == 1 ? 0 : 1);
+                });
+                
+                $playground.append($cell);
+                cellNumber++;
+            }
+        }
     });
 
 
 
-    const playground = $('.playground');
-    const imageCount = 9; // Número de imágenes en la galería
-    const imagePaths = [
-        'media/lukinik_in_1.webp',
-        'media/lukinik_in_2.webp',
-        'media/lukinik_in_3.webp',
-        'media/lukinik_in_4.webp',
-        'media/lukinik_in_5.webp',
-        'media/lukinik_in_6.webp',
-        'media/lukinik_in_7.webp',
-        'media/lukinik_in_8.webp',
-        'media/lukinik_in_9.webp',
-    ];
-
-    // Función para obtener una posición aleatoria en la pantalla
-    function getRandomPosition() {
-        const x = Math.random() * $(window).width();
-        const y = Math.random() * $(window).height();
-        return { x, y };
-    }
-
-    // Crear y añadir imágenes a la galería
-    const images = [];
-    for (let i = 0; i < imageCount; i++) {
-        const imagePath = imagePaths[i % imagePaths.length];
-        const $image = $('<img src="' + imagePath + '" class="image">');
-        playground.append($image);
-        const { x, y } = getRandomPosition();
-        $image.css('transform', `translate(${x}px, ${y}px)`);
-        images.push({ $image, x, y });
-    }
-
-    let lastScrollTop = $(window).scrollTop();
-    
-    // Manejar el scroll para mover las imágenes en direcciones aleatorias
-    $(window).on('scroll', function() {
-        let scrollTop = $(this).scrollTop();
-        let scrollDelta = scrollTop - lastScrollTop;
-        lastScrollTop = scrollTop;
-        
-        images.forEach(imageObj => {
-            let { $image, x, y } = imageObj;
-            x += scrollDelta * (Math.random() - 0.5);
-            y += scrollDelta * (Math.random() - 0.5);
-            $image.css('transform', `translate(${x}px, ${y}px)`);
-            imageObj.x = x;
-            imageObj.y = y;
-        });
-    });
 
 
 });

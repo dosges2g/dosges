@@ -437,16 +437,40 @@ video {
     text-decoration: underline;
 }
 
-.playground {
-    position: relative;
-    width: 100vw;
+#playground {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    width: 80vw;
     height: 100vh;
-    overflow: hidden;
+}
+.pgcell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #333;
 }
 
-.playground .image {
+.pgcell::before {
+    content: attr(data-number);
     position: absolute;
-    width: 30vw;
-    height: auto;
-    transition: transform 1s ease-in-out linear;
+    top: 5px;
+    left: 5px;
+    font-size: 0.75rem;
+    color: #000;
 }
+
+.pgcell img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+
