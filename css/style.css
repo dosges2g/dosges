@@ -78,11 +78,12 @@ a span {
     align-items: flex-end;
     z-index: 100;
 }
-#projs {
+#projs, #playgr {
     text-decoration: line-through;
     text-decoration-thickness: 1.5px;
     text-decoration-color: transparent;
     transition: text-decoration-color 1.2s ease;
+    cursor: pointer;
 }
 #index {
     position: fixed;
@@ -321,7 +322,6 @@ section.desarrollo div.proj_txts span {
     pointer-events: none;
     z-index: 6;
 }
-
 .textRow {
     position: absolute;
     width: 100%;
@@ -330,7 +330,6 @@ section.desarrollo div.proj_txts span {
     transition: height 0.3s;
     z-index: 6;
 }
-
 .cellsAnim2 {
     width: 100%;
     height: 100%;
@@ -360,445 +359,7 @@ section.desarrollo div.proj_txts span {
 
 
 
-
-/* LOEWE */
-.text1 {
-    display: flex;
-    flex-direction: column;
-}
-.text1 b {
-    font-size: 1rem;
-    font-family: 'reg';
-    vertical-align: text-top;
-}
-.big {
-    font-size: 2.5rem;
-    line-height: 2.1rem;
-    font-family: 'mid';
-}
-.biggie {
-    font-size: 2.5rem;
-    line-height: 2.1rem;
-}
-.right {
-    margin-left: 5rem;
-}
-.minustop {
-    margin-top: -0.4rem;
-}
-.page2 img, .page2 video {
-    width: 100%;
-    cursor: pointer;
-}
-.franja1 {
-    width: 60%;
-    display: flex;
-    align-items: flex-end;
-    margin-left: 7rem;
-}
-.foto1, .foto2 {
-    width: 50%;
-}
-.franja2 {
-    width: 60%;
-    display: flex;
-    margin-left: 7rem;
-}
-.text3, .text2 {
-    display: flex;
-    padding: 1rem 1rem 1rem 0;
-    width: 50%;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.text2 {
-    padding: 1rem 0;
-    text-align: end;
-}
-.text3 span:nth-child(2) {
-    flex: 0.8;
-}
-.petit {
-    font-family: 'mid';
-    font-size: 1.3rem;
-    padding: 1rem 0;
-}
-.franja3 {
-    width: 100%;
-    padding: 0;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-.foto3 {
-    width: 75%;
-}
-section.desarrollo .franja3 .text4.proj_txts {
-    position: absolute;
-    top: 13%;
-    right: 5%;
-    display: flex;
-    justify-content: flex-end;
-}
-.text4 span {
-    text-align: end;
-    width: 35%;
-    color: wheat;
-    font-size: .8rem;
-}
-.text4 span:first-child {
-    margin-right: 5rem;
-}
-.franja4 {
-    width: 100%;
-    height: 71vh;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.fotos4 {
-    display: grid;
-    row-gap: .5rem;
-    grid-template-rows: repeat(6, 1fr);
-}
-.fotos4_foto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-.franja5 {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-}
-.credits {
-    width: 40%;
-    display: flex;
-    padding: 0rem 0rem 15rem 5rem;
-}
-.credits > span {
-    display: flex;
-    flex-direction: column;
-    margin-right: 1rem ;
-}
-.credits > span:first-child span {
-    text-align: end;
-    color: #a9a9a9;
-}
-.foto5 {
-    width: 48%;
-}
-
-/* QUERENCIA */
-.franja .foto0 {
-    height: inherit;
-    width: auto;
-}
-.franja .foto0 img {
-    height: inherit;
-}
-.franja {
-    width: 100%;
-    height: 90vh;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 7rem;
-}
-.txt0 {
-    position: absolute;
-    top: 0;
-    height: inherit;
-    transition: opacity .5s ease;
-}
-.txt0 div {
-    width: 50%;
-    height: 44%;
-    background-color: #ebebe9;
-    overflow: hidden;
-    text-align: justify;
-    line-height: 1.2rem;
-    opacity: 0;
-    transition: opacity 1.2s ease;
-}
-
-.txt0 div span {
-    color: #092a2d;
-    font-size: .8rem;
-    hyphens: auto;
-    word-spacing: -.2rem;
-}
-.txt0 .txt02 {
-    margin-left: 50%;
-}
-.txt0 .txt03 {
-    height: 12%;
-}
-.franja .foto1 {
-    width: 25%;
-}
-.franja .foto5 {
-    height: inherit;
-    width: auto;
-    z-index: 8;
-}
-.franja .foto5 img {
-    height: inherit;
-}
-.franja .foto5 .foto5over {
-    position: absolute;
-    top: 0;
-    opacity: 0;
-    transition: opacity 1.5s ease;
-}
-
-
-
-/* MOCHA */
-.franja1mo {
-    padding: 0 7rem;
-    height: auto;
-    width: 100%;
-    display: flex;
-}
-.franja1mo .foto1 {
-    width: 25%;
-    height: auto;
-    padding-right: 1.2rem;
-}
-.franja1mo .text2 {
-    width: 50%;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: end;
-    text-align: end;
-}
-.franja2mo {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 15rem 7rem;
-    column-gap: 1.2rem;
-}
-.mo_cols {
-    width: 33.33%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: end;
-}
-.franja2mo .text3 {
-    text-align: end;
-    padding: 1rem 0;
-    line-height: 1.2rem;
-}
-.franja2mo .mo_cols:first-child .text3 {
-    width: 70%;
-}
-.franja2mo .mo_cols:last-child .text3 {
-    width: 100%;
-}
-.mo_cols .foto2 {
-    width: 100%;
-    height: auto;
-}
-#mocha .franja4 .fotos4 {
-    grid-template-rows: repeat(5, 1fr);
-}
-#mocha .foto5 {
-    height: 45vh;
-    width: auto;
-}
-#mocha .foto5 img {
-    height: inherit;
-}
-
-
-
-/* LUKINIK */
-.franja1lu {
-    display: flex;
-    margin: 0 7rem;
-    height: auto;
-}
-.franja1lu .foto1 {
-    width: 12%;
-    margin-right: 1%;
-    height: auto;
-    align-self: flex-end;
-}
-.franja1lu .foto2 {
-    width: 28%;
-    margin-right: 1%;
-    height: auto;
-}
-.franja1lu .proj_txts {
-    width: 59%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.franja1lu .proj_txts span:nth-child(2) {
-    top: -2rem;
-}
-.franja1lu .big {
-    align-self: flex-end;
-}
-.franja1lu .proj_txts span:not(:nth-child(3)){
-    width: 65%;
-}
-.franjavenue {
-    margin: 12rem 7rem 0 7rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-.franjavenue > .proj_txts {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 50%;
-    row-gap: 1.5rem;
-}
-.franjavenue > .proj_txts > .proj_txts {
-    display: flex;
-    column-gap: 2.5rem;
-}
-.franjavenue > .proj_txts > .proj_txts span {
-    text-align: end;
-}
-.franjavenue > .proj_txts > .proj_txts span:first-child {
-    width: 40%;
-}
-.franjavenue > .proj_txts > .proj_txts span:last-child {
-    width: 60%;
-}
-.franjavenue .foto3 {
-    width: auto;
-    margin-top: 2rem
-}
-.franjahand {
-    margin: 5rem 7rem 0 7rem;
-    display: flex;
-    flex-direction: column;
-    row-gap: 2rem;
-}
-.franjahand .row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-    column-gap: 2rem;
-}
-.row .foto4 {
-    width: 55%;
-}
-.row > .proj_txts {
-    display: flex;
-    justify-content: space-between;
-    width: 45%;
-}
-.row > .proj_txts span {
-    width: 50%;
-}
-.franjahand .row:last-child {
-    width: 60%;
-    display: flex;
-    align-self: flex-end;
-    column-gap: 2rem;
-}
-.row2col {
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-}
-.row2col:last-child {
-    align-items: flex-end;
-    text-align: end;
-}
-.franjaorg {
-    margin: 10rem 7rem 0 7rem;
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-}
-.franjaorg .row2 {
-    display: flex;
-    justify-content: space-between;
-    column-gap: 1rem;
-}
-.row2 .row2col:first-child {
-    width: 40%;
-}
-.row2 .row2col:nth-child(2) {
-    width: 20%;
-    align-self: flex-end;
-}
-.row2 .row2col:last-child {
-    width: 40%;
-    display: flex;
-    justify-content: space-between;
-}
-.row2 .row2col:last-child .proj_txts {
-    justify-content: space-between;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-.row2 .row2col:last-child .proj_txts span {
-    text-align: start;
-}
-.franjaorg .foto5 {
-    width: 40%;
-}
-.franjapers {
-    margin: 10rem 7rem 0 7rem;
-    display: flex;
-}
-.franjapers .proj_txts {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-.franjapers .foto6 {
-    width: 60%;
-}
-.franjacat {
-    margin: 10rem 7rem 0 7rem;
-    display: flex;
-    column-gap: 1rem;
-}
-.franjacat > div:first-child {
-    display: flex;
-    flex-direction: column;
-    width: 48%;
-    justify-content: space-between;
-}
-.franjacat > div:first-child .proj_foto, 
-.franjacat > div:last-child .proj_txts {
-    margin-top: 16rem;
-}
-.franjacat > div:last-child {
-    width: 52%;
-    display: flex;
-    flex-direction: column;
-}
-.fullluk {
-    margin: 10rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.fulluk {
-    text-decoration: underline;
-}
-
-
+/* PROJECTS */
 
 .fr1 {
     display: flex;
@@ -828,4 +389,64 @@ video {
     width: 100%;
     height: auto;
 }
+.text1 {
+    display: flex;
+    flex-direction: column;
+}
+.text1 b {
+    font-size: 1rem;
+    font-family: 'reg';
+    vertical-align: text-top;
+}
+.big {
+    font-size: 2.5rem;
+    line-height: 2.1rem;
+    font-family: 'mid';
+}
+.right {
+    margin-left: 5rem;
+}
+.minustop {
+    margin-top: -0.4rem;
+}
+.page2 img, .page2 video {
+    width: 100%;
+    cursor: pointer;
+}
+.franja5 {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.credits {
+    width: 40%;
+    display: flex;
+    padding: 0rem 0rem 15rem 5rem;
+}
+.credits > span {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem ;
+}
+.credits > span:first-child span {
+    text-align: end;
+    color: #a9a9a9;
+}
+.fulluk {
+    text-decoration: underline;
+}
 
+.playground {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.playground .image {
+    position: absolute;
+    width: 30vw;
+    height: auto;
+    transition: transform 1s ease-in-out linear;
+}

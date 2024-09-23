@@ -67,7 +67,7 @@ $(document).ready(function() {
     }
 
     //funcion animateCells
-    function animateCells() {
+    function animateCells(showForScroll = true) {
         var cells = cellsAnim.find('.cell');
         var shuffledCells = shuffle(cells.toArray());
         var totalCells = rows * cols;
@@ -88,7 +88,9 @@ $(document).ready(function() {
             $(shuffledCells).css('display', '');
             $('#coverDoble').hide();
             cellsAnim.hide();
-            $('#forscroll').show();
+            if (showForScroll) {
+                $('#forscroll').show();
+            }
         }, animationDuration + 500);
     }
 
@@ -145,7 +147,7 @@ $(document).ready(function() {
         $('#cover2').css('background-image', 'url(media/' + projectFull + '2_cover.webp)');
         $('#coverDoble').css('background-image', 'url(media/' + projectFull + '_cover.webp)');
 
-        animateCells();
+        animateCells(true);
     
         var spans = $('#index').find('span');
         spans.each(function(index) {
@@ -316,6 +318,17 @@ $(document).ready(function() {
         "seguir_in_7.webp"
     ];
 
+    const rifMin = [
+        "rif_in_1.mp4",
+        "rif_in_2.webp",
+        "rif_in_3.mp4",
+        "rif_in_4.mp4",
+        "rif_in_5.webp",
+        "rif_in_6.mp4",
+        "rif_in_7.mp4",
+        "rif_in_8.mp4"
+    ];
+
     let currentImageFiles = [];
 
     function obtenerMedios(projId) {
@@ -338,6 +351,8 @@ $(document).ready(function() {
                 return fikaMin;
             case 'seguir':
                 return seguirMin;
+            case 'rif':
+                return rifMin;
             default:
                 return [];
         }
@@ -684,6 +699,10 @@ $(document).ready(function() {
     $('.title2txt').click(function(){
         var currentProject = $('.fullProj:not(.hidden)');
         var nextProject = currentProject.next('.fullProj');
+
+        if (nextProject.length === 0) {
+            nextProject = $('.fullProj').first();
+        }
         var nextProjectId = nextProject.attr('id');
 
         $('#transicion .cellT').css('display', 'block')
@@ -721,7 +740,7 @@ $(document).ready(function() {
 
         setTimeout(() => {        
             $('#cellsAnim .cell').css('display', 'block')
-            animateCells();
+            animateCells(true);
         }, 2000);
 
         setTimeout(() => {
@@ -746,23 +765,102 @@ $(document).ready(function() {
     
 
     
+    $(window).on("scroll", function() {
+        var $colLeft = $(".col-left");
+        var $colRight = $(".col-right");
+
+        var rect = $colLeft[0].getBoundingClientRect();
+        var windowHeight = $(window).height();
+
+        // Si la parte inferior de .col-left ya ha pasado el borde superior del viewport
+        if (rect.bottom < windowHeight) {
+            // Se quita el sticky
+            $colRight.css("position", "revert-layer");
+        } else {
+            // Sigue siendo sticky
+            $colRight.css("position", "sticky");
+        }
+    });
 
 
-});
 
-$(window).on("scroll", function() {
-    var $colLeft = $(".col-left");
-    var $colRight = $(".col-right");
 
-    var rect = $colLeft[0].getBoundingClientRect();
-    var windowHeight = $(window).height();
+    //PLAYGROUND
 
-    // Si la parte inferior de .col-left ya ha pasado el borde superior del viewport
-    if (rect.bottom < windowHeight) {
-        // Se quita el sticky
-        $colRight.css("position", "revert-layer");
-    } else {
-        // Sigue siendo sticky
-        $colRight.css("position", "sticky");
+    $('#playgr').click(function() {
+        event.preventDefault(); 
+        $('#cellsAnim .cell').css('display', 'block')
+        
+        animateCells(false);
+    
+        var spans = $('#index').find('span');
+        spans.each(function(index) {
+            $(this).css('transform', 'translateY(100%)');
+            $('#index').css('pointer-events', 'none');
+        });
+
+        $('.playground').removeClass('hidden');
+
+        $('#playgr').css({
+            "text-decoration-color": "#000"
+        });
+
+        $('#forscroll').hide();
+
+
+    });
+
+
+
+    const playground = $('.playground');
+    const imageCount = 9; // Número de imágenes en la galería
+    const imagePaths = [
+        'media/lukinik_in_1.webp',
+        'media/lukinik_in_2.webp',
+        'media/lukinik_in_3.webp',
+        'media/lukinik_in_4.webp',
+        'media/lukinik_in_5.webp',
+        'media/lukinik_in_6.webp',
+        'media/lukinik_in_7.webp',
+        'media/lukinik_in_8.webp',
+        'media/lukinik_in_9.webp',
+    ];
+
+    // Función para obtener una posición aleatoria en la pantalla
+    function getRandomPosition() {
+        const x = Math.random() * $(window).width();
+        const y = Math.random() * $(window).height();
+        return { x, y };
     }
+
+    // Crear y añadir imágenes a la galería
+    const images = [];
+    for (let i = 0; i < imageCount; i++) {
+        const imagePath = imagePaths[i % imagePaths.length];
+        const $image = $('<img src="' + imagePath + '" class="image">');
+        playground.append($image);
+        const { x, y } = getRandomPosition();
+        $image.css('transform', `translate(${x}px, ${y}px)`);
+        images.push({ $image, x, y });
+    }
+
+    let lastScrollTop = $(window).scrollTop();
+    
+    // Manejar el scroll para mover las imágenes en direcciones aleatorias
+    $(window).on('scroll', function() {
+        let scrollTop = $(this).scrollTop();
+        let scrollDelta = scrollTop - lastScrollTop;
+        lastScrollTop = scrollTop;
+        
+        images.forEach(imageObj => {
+            let { $image, x, y } = imageObj;
+            x += scrollDelta * (Math.random() - 0.5);
+            y += scrollDelta * (Math.random() - 0.5);
+            $image.css('transform', `translate(${x}px, ${y}px)`);
+            imageObj.x = x;
+            imageObj.y = y;
+        });
+    });
+
+
 });
