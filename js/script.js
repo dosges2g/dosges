@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 
     // VOLVER A HOME CON DOSGES
-    $('#dosges').click(function() {
+    $('#dosges, #projs').click(function() {
         $('#transicion .cellT').css('display', 'block')
         transCurtain()
         setTimeout(() => {        
@@ -187,7 +187,7 @@ $(document).ready(function() {
             cover2.css('background-size', '100%');
         }
 
-        // miniaturas, title, desarrollo, foto5over
+        // miniaturas, title, desarrollo
         if (cover2.css('background-size') === '8%') {
             showMiniaturas();
             cover2.css('opacity', '0');
@@ -365,7 +365,7 @@ $(document).ready(function() {
         }
 
         $miniaturasContainer.empty();
-        const mediaFiles = obtenerMedios(projId); // Debe devolver tanto imágenes como videos
+        const mediaFiles = obtenerMedios(projId); 
         const columnCount = mediaFiles.length;
         $miniaturasContainer.css('grid-template-columns', `repeat(${columnCount}, 1fr)`);
 
@@ -374,11 +374,9 @@ $(document).ready(function() {
             const fileExtension = file.split('.').pop().toLowerCase();
             
             if (['jpg', 'jpeg', 'png', 'webp'].includes(fileExtension)) {
-                // Crear miniatura de imagen
                 const $img = $(`<img src="media/${file}" alt="${file}">`);
                 $miniaturaDiv.append($img);
             } else if (['mp4', 'webm', 'mov'].includes(fileExtension)) {
-                // Crear miniatura de video
                 const $video = $(`<video src="media/${file}" alt="${file}" muted></video>`);
                 $miniaturaDiv.append($video);
             }
@@ -447,11 +445,11 @@ $(document).ready(function() {
     // OVERLAY
    function showOverlay(mediaSrc, isVideo = false) {
         if (isVideo) {
-            $('.overlay img').hide(); // Oculta la imagen
-            $('.overlay video').show().attr('src', mediaSrc); // Muestra el video y actualiza la fuente
+            $('.overlay img').hide(); 
+            $('.overlay video').show().attr('src', mediaSrc); 
         } else {
-            $('.overlay video').hide(); // Oculta el video
-            $('.overlay img').show().attr('src', mediaSrc); // Muestra la imagen y actualiza la fuente
+            $('.overlay video').hide(); 
+            $('.overlay img').show().attr('src', mediaSrc); 
         }
         $('.overlay').fadeIn();
         $('.overlay').css('display', 'flex');
@@ -462,10 +460,10 @@ $(document).ready(function() {
         var mediaSrc;
         if ($(this).find('video').length) {
             mediaSrc = $(this).find('video').attr('src');
-            showOverlay(mediaSrc, true); // Se trata de un video
+            showOverlay(mediaSrc, true); 
         } else {
             mediaSrc = $(this).find('img').attr('src');
-            showOverlay(mediaSrc); // Se trata de una imagen
+            showOverlay(mediaSrc); 
         }
     });
 
@@ -490,12 +488,12 @@ $(document).ready(function() {
         var mediaSrc;
         if ($(this).find('video').length) {
             mediaSrc = $(this).find('video').attr('src');
-            $('.overlay video').show().attr('src', mediaSrc); // Mostrar el video en el overlay
-            $('.overlay img').hide(); // Ocultar la imagen si había alguna
+            $('.overlay video').show().attr('src', mediaSrc); 
+            $('.overlay img').hide(); 
         } else {
             mediaSrc = $(this).find('img').attr('src');
-            $('.overlay img').show().attr('src', mediaSrc); // Mostrar la imagen en el overlay
-            $('.overlay video').hide(); // Ocultar el video si había alguno
+            $('.overlay img').show().attr('src', mediaSrc); 
+            $('.overlay video').hide(); 
         }
     }
     });
@@ -565,7 +563,6 @@ $(document).ready(function() {
                 if (!$target.hasClass('animated')) {
                     $target.addClass('visible animated'); 
 
-                    // Crear el div hijo .cellsAnim2
                     var $cellsAnimOverlay = $('<div class="cellsAnim2"></div>');
                     createCells($cellsAnimOverlay);
                     $target.append($cellsAnimOverlay);
@@ -772,12 +769,9 @@ $(document).ready(function() {
         var rect = $colLeft[0].getBoundingClientRect();
         var windowHeight = $(window).height();
 
-        // Si la parte inferior de .col-left ya ha pasado el borde superior del viewport
         if (rect.bottom < windowHeight) {
-            // Se quita el sticky
             $colRight.css("position", "revert-layer");
         } else {
-            // Sigue siendo sticky
             $colRight.css("position", "sticky");
         }
     });
@@ -786,7 +780,7 @@ $(document).ready(function() {
 
 
     //PLAYGROUND
-
+    //ocultar todo menos el playground al hacer click
     $('#playgr').click(function() {
         event.preventDefault(); 
         $('#cellsAnim .cell').css('display', 'block')
@@ -812,47 +806,159 @@ $(document).ready(function() {
 
 
         const $playground = $('#playground');
+        const $imageContainer = $('#image-container');
+        const $selectedImage = $('#selected-image');
         const pgrows = 7;
         const pgcols = 7;
-        const totalPgCells = rows * cols;
         let cellNumber = 1;
 
-        const images = [
-            'pg_yorokobu_1.webp', 
-            'pg_yorokobu_2.webp', 
-            'pg_yorokobu_3.webp',
-            'pg_cortazar_1.webp', 
-            'pg_cortazar_2.webp', 
-            'pg_cortazar_3.webp', 
-            'pg_cortazar_4.webp',
-            'pg_trastulo_1.webp',
-            'pg_navajeros_1.webp', 
-            'pg_navajeros_2.webp', 
-            'pg_inapa.webp',
-            'pg_kanai.webp',
-        ];
+        const imageGroups = {
+            'cortazar': ['pg_cortazar_1.webp', 'pg_cortazar_2.webp', 'pg_cortazar_3.webp', 'pg_cortazar_4.webp'],
+            'yorokobu': ['pg_yorokobu_1.webp', 'pg_yorokobu_2.webp', 'pg_yorokobu_3.webp'],
+            'trastulo': ['pg_trastulo_1.webp'],
+            'navajeros': ['pg_navajeros_1.webp', 'pg_navajeros_2.webp'],
+            'inapa': ['pg_inapa.webp'],
+            'kanai': ['pg_kanai.webp'],
+        };
 
-        function getImageForCell(index) {
-            return images[index % images.length];
-        }
+        const images = Object.values(imageGroups).flat();
 
+        // numera las celdas y al hacer hover aparecen random cada vez 
         for (let row = 0; row < pgrows; row++) {
             for (let col = 0; col < pgcols; col++) {
                 const $cell = $('<div class="pgcell"></div>');
                 $cell.attr('data-number', `[${cellNumber}]`);
-                const imgSrc = `media/pg/${getImageForCell(cellNumber - 1)}`;
-                const $img = $('<img>').attr('src', imgSrc);
+
+                const $img = $('<img>').css('opacity', '0');
                 $cell.append($img);
 
                 $cell.on('mouseenter', function() {
-                    $img.css('opacity', $img.css('opacity') == 1 ? 0 : 1);
+                    const randomImage = getRandomImage();
+                    $img.attr('src', `media/pg/${randomImage}`).css('opacity', '1'); // Imagen visible al hacer hover
+
+                    setTimeout(() => {
+                        $img.css('opacity', '0');
+                    }, 2200);
                 });
-                
+
+                // al hacer click en una celda se muestra su imagen en grande
+                $cell.on('click', function() {
+                    const imgSrc = $img.attr('src');
+                    if (imgSrc) {
+                        let selectedGroup = null;
+                        for (let group in imageGroups) {
+                            if (imageGroups[group].includes(imgSrc.split('/').pop())) {
+                                selectedGroup = imageGroups[group];
+                                break;
+                            }
+                        }
+
+                        if (selectedGroup) {
+                            setTimeout(() => {
+                                var $cellsAnimOverlay = $('<div class="cellsAnim2"></div>');
+                                $selectedImage.parent().append($cellsAnimOverlay); 
+                                createCells($cellsAnimOverlay);  
+                                animateCells2($cellsAnimOverlay);
+                                
+                                $selectedImage.attr('src', imgSrc);
+                                setTimeout(() => {
+                                    $('#close-icon').css('opacity', '1')
+                                    $cellsAnimOverlay.remove();
+                                }, 700);
+
+                            }, 500);
+
+                            $imageContainer.css('display','flex');
+
+                            // todas las celdas menos la fila1 se desplazan hacia abajo
+                            $playground.find('.pgcell').each(function() {
+                                const cellNumber = $(this).data('number');
+                                if (cellNumber >= 8 && cellNumber <= 49) {
+                                    $(this).css('transform', 'translateY(73vh)');
+                                    $(this).css('transition', '.7s ease');
+                                }
+                            });
+
+                            // en las celdas 2-7 se muestran las miniaturas del grupo
+                            for (let i = 0; i < selectedGroup.length; i++) {
+                                const $targetCell = $(`.pgcell:nth-child(${i + 2})`);  
+                                const $thumbnail = $('<img>').attr('src', `media/pg/${selectedGroup[i]}`).addClass('thumbnail');
+                                
+                                $targetCell.find('img').remove();
+                                
+                                $targetCell.append($thumbnail);
+                                setTimeout(() => {
+                                    $thumbnail.css('opacity', '1');  
+                                }, 500);
+
+                                $targetCell.off('mouseenter mouseleave');  
+                                $targetCell.on('click', function() {
+                                    const clickedImgSrc = $thumbnail.attr('src');
+                                    if (clickedImgSrc) {
+                                        $selectedImage.attr('src', clickedImgSrc); 
+                                    }
+                                });
+                            }
+                            
+                            $playground.find('.pgcell').off('mouseenter mouseleave');
+
+                            // al cerrar en la X todo vuelve al inicio
+                            $('#close-icon').on('click', function() {
+                                $imageContainer.css('opacity', '0');
+                                $imageContainer.css('transition', '.7s');
+                                $playground.find('.pgcell img.thumbnail').css('opacity', '0');
+                                $playground.find('.pgcell img.thumbnail').css('transition', '.7s'); 
+
+
+                                setTimeout(() => {
+                                    $imageContainer.css('display', 'none');
+                                    $imageContainer.css('opacity', '1');
+                                    $playground.find('.pgcell img.thumbnail').remove();  
+                                    $selectedImage.attr('src', '');  
+                                    $playground.find('.pgcell').each(function() {
+                                        const cellNumber = $(this).data('number');
+                                        if (cellNumber >= 8 && cellNumber <= 49) {
+                                            $(this).css('transform', 'translateY(0)');  
+                                        }
+                                    });
+
+                                    $playground.find('.pgcell').each(function() {
+                                        const $cell = $(this);
+                                        $cell.on('mouseenter', function() {
+                                            const randomImage = getRandomImage();
+                                            $cell.find('img').attr('src', `media/pg/${randomImage}`).css('opacity', '1');
+                                        });
+
+                                        $cell.on('mouseleave', function() {
+                                            setTimeout(() => {
+                                                $cell.find('img').css('opacity', '0');
+                                            }, 2200);
+                                        });
+                                    });
+
+                                }, 700);
+                            });
+                        }
+                    }
+                });
+
                 $playground.append($cell);
                 cellNumber++;
             }
         }
+
+        // Función para obtener una imagen aleatoria
+        function getRandomImage() {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            return images[randomIndex];
+        }
     });
+
+
+
+
+    // AV
+    
 
 
 

@@ -78,7 +78,7 @@ a span {
     align-items: flex-end;
     z-index: 100;
 }
-#projs, #playgr {
+#projs, #playgr, #av {
     text-decoration: line-through;
     text-decoration-thickness: 1.5px;
     text-decoration-color: transparent;
@@ -437,29 +437,61 @@ video {
     text-decoration: underline;
 }
 
+#pg-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 #playground {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 1fr);
-    width: 80vw;
-    height: 100vh;
+    width: 67vw;
+    height: 75vh;
+    top: 14%;
+    left: 11%;
 }
 .pgcell {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: #333;
+}
+.pgcell:nth-child(odd):not(:nth-child(1)):not(:nth-child(3)):not(:nth-child(5)):not(:nth-child(7)):not(:nth-child(15)):not(:nth-child(29)):not(:nth-child(43))::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.414); 
+    left: -8px; 
+    height: 1px; 
+    width: 10%; 
 }
 
-.pgcell::before {
-    content: attr(data-number);
+.pgcell:nth-child(odd):not(:nth-child(1)):not(:nth-child(3)):not(:nth-child(5)):not(:nth-child(7)):not(:nth-child(21)):not(:nth-child(35)):not(:nth-child(49))::after {
+    content: '';
     position: absolute;
-    top: 5px;
-    left: 5px;
-    font-size: 0.75rem;
-    color: #000;
+    background-color: rgba(0, 0, 0, 0.414); 
+    top: -7px; 
+    right: 0;
+    width: 1px; 
+    height: 16%; 
+}
+
+.pgcell:nth-child(even):not(:nth-child(44)):not(:nth-child(46)):not(:nth-child(48)):not(:nth-child(42)):not(:nth-child(28)):not(:nth-child(14))::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.414); 
+    right: -8px; 
+    bottom: 0px;
+    height: 1px; 
+    width: 10%; 
+}
+
+.pgcell:nth-child(even):not(:nth-child(44)):not(:nth-child(46)):not(:nth-child(48)):not(:nth-child(8)):not(:nth-child(22)):not(:nth-child(36))::after {
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.414); 
+    bottom: -7px; 
+    width: 1px; 
+    height: 16%; 
 }
 
 .pgcell img {
@@ -469,8 +501,34 @@ video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
-
+#image-container {
+    display: none;
+    height: 67%;
+    position: absolute;
+    top: 26%;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+}
+#image-container img {
+    max-height: 100%;
+    max-width: 100%;
+}
+#close-icon {
+    position: absolute;
+    opacity: 0;
+    top: -.5rem;
+    right: 22%;
+    color: #1d1d1daa;
+    cursor: pointer;
+    font-size: 1.8rem;
+    transition: opacity .4s ease;   
+}
+.thumbnail {
+    opacity: 0;
+    transition: opacity 1s ease; 
+}
 
