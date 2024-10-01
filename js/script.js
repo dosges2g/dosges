@@ -142,7 +142,7 @@ $(document).ready(function() {
 
     $('#index a').click(function() {
         event.preventDefault(); 
-        $('#cellsAnim .cell').css('display', 'block')
+        $('#cellsAnim .cell').css('display', 'block');
         var projectFull = $(this).data('project');
         $('#cover2').css('background-image', 'url(media/' + projectFull + '2_cover.webp)');
         $('#coverDoble').css('background-image', 'url(media/' + projectFull + '_cover.webp)');
@@ -798,7 +798,7 @@ $(document).ready(function() {
         $('#playgr').css({
             "text-decoration-color": "#000"
         });
-        $('#projs').css({
+        $('#projs, #av').css({
             "text-decoration-color": ""
         });
 
@@ -958,10 +958,122 @@ $(document).ready(function() {
 
 
     // AV
+    // al hacer click en el boton de audiovisuales
+    $('#av').click(function(){
+        event.preventDefault(); 
+        $('#cellsAnim .cell').css('display', 'block');
+        animateCells(false);
+        
+        var spans = $('#index').find('span');
+        spans.each(function(index) {
+            $(this).css('transform', 'translateY(100%)');
+            $('#index').css('pointer-events', 'none');
+        });
+
+        $('#audiov').removeClass('hidden');
+        $('#audiov .desarrollo').show();
+
+        $('#av').css({
+            "text-decoration-color": "#000"
+        });
+
+        $('#projs, #playgr').css({
+            "text-decoration-color": ""
+        });
+
+        $('#forscroll').hide();
+
+    })
+
+
+    // funcionamiento de cambio de proyecto en las cols
+    let avCurrentProject = '';
+
+    $(window).on('scroll', function() {
+        const scrollPosition = $(window).scrollTop();
+
+        $('.col-left .av-proj').each(function(index) {
+            const project = $(this);
+            const offsetTop = project.offset().top;
+            const projectHeight = project.outerHeight();
+
+            if (scrollPosition >= offsetTop - window.innerHeight / 2 && scrollPosition < offsetTop + projectHeight) {
+                const activeProject = project.attr('class').split(' ')[1]; 
+
+                if (activeProject !== avCurrentProject) {
+                    avCurrentProject = activeProject;
+                    updateRightColumn(activeProject);
+                }
+            }
+        });
+    });
+
+    function createRowsAnimation() {
+        const $rowsAnim = $('#rowsAnim');
+        $rowsAnim.empty();
+
+        const rowCount = 10; 
+        const rowHeight = 100 / rowCount + '%'; 
+
+        for (let i = 0; i < rowCount; i++) {
+            const row = $('<div class="row"></div>');
+            row.css({
+                height: rowHeight,
+                backgroundColor: '#ebebe9'
+            });
+            $rowsAnim.append(row);
+        }
+
+        setTimeout(() => {
+            $('#rowsAnim .row').each(function(index) {
+                $(this).css('transition', `height 0.7s ease`);
+                $(this).css('height', '0pt');
+            });
+        }, 500);
+    }
+
+    let isFirstUpdate = true;
+    let currentProject = '';
+    let previousProject = '';
+
+    function updateRightColumn(project) {
+        if (isFirstUpdate || project === currentProject) {
+            currentProject = project; 
+            if (isFirstUpdate) {
+                isFirstUpdate = false; 
+            }
+            return; 
+        }
+
+        $('.col-right .av-proj').each(function() {
+            $(this).addClass('hidden');
+            $(this).css({
+                'display': 'none',
+                'height': '',
+                'flex-direction': '',
+                'justify-content': ''
+            });
+        });
+
+        const $newProject = $(`.col-right .${project}`);
+        $newProject.removeClass('hidden');
+        $newProject.css({
+            'height': '100vh',
+            'display': 'flex',
+            'flex-direction': 'column',
+            'justify-content': 'space-between'
+        });
+
+        // Llama a la función de animación
+        createRowsAnimation();
+        previousProject = currentProject; // Guarda el proyecto actual como anterior
+        currentProject = project; // Actualiza el proyecto actual
+    }
+
     
 
-
-
+    
+   
 
 
 });
