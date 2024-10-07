@@ -136,7 +136,6 @@ $(document).ready(function() {
     });
 
 
-
     //AL PINCHAR EN UN PROYECTO EN EL INDEX
     var currentProjectId = null;
 
@@ -795,6 +794,8 @@ $(document).ready(function() {
 
         $('#playground').removeClass('hidden');
 
+        $('#audiov').addClass('hidden');
+
         $('#playgr').css({
             "text-decoration-color": "#000"
         });
@@ -815,10 +816,12 @@ $(document).ready(function() {
         const imageGroups = {
             'cortazar': ['pg_cortazar_1.webp', 'pg_cortazar_2.webp', 'pg_cortazar_3.webp', 'pg_cortazar_4.webp'],
             'yorokobu': ['pg_yorokobu_1.webp', 'pg_yorokobu_2.webp', 'pg_yorokobu_3.webp'],
-            'trastulo': ['pg_trastulo_1.webp'],
+            'trastulo': ['pg_trastulo_1.webp', 'pg_trastulo_2.webp'],
             'navajeros': ['pg_navajeros_1.webp', 'pg_navajeros_2.webp'],
             'inapa': ['pg_inapa.webp'],
             'kanai': ['pg_kanai.webp'],
+            '4mot': ['pg_4mot_1.webp', 'pg_4mot_2.webp', 'pg_4mot_3.webp', 'pg_4mot_4.webp'],
+            'col': ['pg_col_1.webp', 'pg_col_2.webp', 'pg_col_3.webp', 'pg_col_4.webp'],
         };
 
         const images = Object.values(imageGroups).flat();
@@ -959,7 +962,19 @@ $(document).ready(function() {
 
     // AV
     // al hacer click en el boton de audiovisuales
+    $('#dosges, #projs').click(function() {
+
+    });
     $('#av').click(function(){
+        $('#transicion .cellT').css('display', 'block')
+        transCurtain()
+        setTimeout(() => {        
+            if (currentProjectId) {
+                $('#audiov').removeClass('hidden');
+                $('#playground').addClass('hidden');
+            }
+        }, 1300);
+
         event.preventDefault(); 
         $('#cellsAnim .cell').css('display', 'block');
         animateCells(false);
