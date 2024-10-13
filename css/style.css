@@ -542,7 +542,9 @@ video {
 
 
 /* AV */
-
+#audiov {
+    display: none;
+}
 .blankspace {
     height: 90vh;
     width: 100%;
