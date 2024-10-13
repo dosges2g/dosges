@@ -130,7 +130,7 @@ $(document).ready(function() {
                 $('#' + currentProjectId).addClass('hidden');
                 currentProjectId = null;
             }
-            location.reload();
+            window.location.href = 'index.html';
         }, 1300);
 
     });
@@ -163,6 +163,9 @@ $(document).ready(function() {
 
         $('#projs').css({
             "text-decoration-color": "#000"
+        });
+        $('#av, #playgr, #abt').css({
+            "text-decoration-color": ""
         });
 
     });
@@ -779,226 +782,216 @@ $(document).ready(function() {
 
 
     //PLAYGROUND
-    //ocultar todo menos el playground al hacer click
     $('#playgr').click(function() {
-        event.preventDefault(); 
-        $('#cellsAnim .cell').css('display', 'block')
-        
-        animateCells(false);
-    
+        $('#transicion .cellT').css('display', 'block');
+        transCurtain();
+
         var spans = $('#index').find('span');
         spans.each(function(index) {
             $(this).css('transform', 'translateY(100%)');
             $('#index').css('pointer-events', 'none');
         });
 
-        $('#playground').removeClass('hidden');
-
-        $('#audiov').addClass('hidden');
+        setTimeout(() => {
+            window.location.href = 'playground.html';
+        }, 1300); 
 
         $('#playgr').css({
             "text-decoration-color": "#000"
         });
-        $('#projs, #av').css({
+
+        $('#projs, #av, #abt').css({
             "text-decoration-color": ""
         });
+    });
+   
 
-        $('#forscroll').hide();
-
-
+    $(document).ready(function() {
+    
         const $playground = $('#playground');
-        const $imageContainer = $('#image-container');
-        const $selectedImage = $('#selected-image');
-        const pgrows = 7;
-        const pgcols = 7;
-        let cellNumber = 1;
+            const $imageContainer = $('#image-container');
+            const $selectedImage = $('#selected-image');
+            const pgrows = 7;
+            const pgcols = 7;
+            let cellNumber = 1;
 
-        const imageGroups = {
-            'cortazar': ['pg_cortazar_1.webp', 'pg_cortazar_2.webp', 'pg_cortazar_3.webp', 'pg_cortazar_4.webp'],
-            'yorokobu': ['pg_yorokobu_1.webp', 'pg_yorokobu_2.webp', 'pg_yorokobu_3.webp'],
-            'trastulo': ['pg_trastulo_1.webp', 'pg_trastulo_2.webp'],
-            'navajeros': ['pg_navajeros_1.webp', 'pg_navajeros_2.webp'],
-            'inapa': ['pg_inapa.webp'],
-            'kanai': ['pg_kanai.webp'],
-            '4mot': ['pg_4mot_1.webp', 'pg_4mot_2.webp', 'pg_4mot_3.webp', 'pg_4mot_4.webp'],
-            'col': ['pg_col_1.webp', 'pg_col_2.webp', 'pg_col_3.webp', 'pg_col_4.webp'],
-        };
+            const imageGroups = {
+                'cortazar': ['pg_cortazar_1.webp', 'pg_cortazar_2.webp', 'pg_cortazar_3.webp', 'pg_cortazar_4.webp'],
+                'yorokobu': ['pg_yorokobu_1.webp', 'pg_yorokobu_2.webp', 'pg_yorokobu_3.webp'],
+                'trastulo': ['pg_trastulo_1.webp', 'pg_trastulo_2.webp'],
+                'navajeros': ['pg_navajeros_1.webp', 'pg_navajeros_2.webp'],
+                'inapa': ['pg_inapa.webp'],
+                'kanai': ['pg_kanai.webp'],
+                '4mot': ['pg_4mot_1.webp', 'pg_4mot_2.webp', 'pg_4mot_3.webp', 'pg_4mot_4.webp'],
+                'col': ['pg_col_1.webp', 'pg_col_2.webp', 'pg_col_3.webp', 'pg_col_4.webp'],
+            };
 
-        const images = Object.values(imageGroups).flat();
+            const images = Object.values(imageGroups).flat();
 
-        // numera las celdas y al hacer hover aparecen random cada vez 
-        for (let row = 0; row < pgrows; row++) {
-            for (let col = 0; col < pgcols; col++) {
-                const $cell = $('<div class="pgcell"></div>');
-                $cell.attr('data-number', `[${cellNumber}]`);
+            // numera las celdas y al hacer hover aparecen random cada vez 
+            if ($playground.children().length === 0) {
+                for (let row = 0; row < pgrows; row++) {
+                    for (let col = 0; col < pgcols; col++) {
+                        const $cell = $('<div class="pgcell"></div>');
+                        $cell.attr('data-number', `[${cellNumber}]`);
 
-                const $img = $('<img>').css('opacity', '0');
-                $cell.append($img);
+                        const $img = $('<img>').css('opacity', '0');
+                        $cell.append($img);
 
-                $cell.on('mouseenter', function() {
-                    const randomImage = getRandomImage();
-                    $img.attr('src', `media/pg/${randomImage}`).css('opacity', '1'); // Imagen visible al hacer hover
+                        $cell.on('mouseenter', function() {
+                            const randomImage = getRandomImage();
+                            $img.attr('src', `media/pg/${randomImage}`).css('opacity', '1'); // Imagen visible al hacer hover
 
-                    setTimeout(() => {
-                        $img.css('opacity', '0');
-                    }, 2200);
-                });
-
-                // al hacer click en una celda se muestra su imagen en grande
-                $cell.on('click', function() {
-                    const imgSrc = $img.attr('src');
-                    if (imgSrc) {
-                        let selectedGroup = null;
-                        for (let group in imageGroups) {
-                            if (imageGroups[group].includes(imgSrc.split('/').pop())) {
-                                selectedGroup = imageGroups[group];
-                                break;
-                            }
-                        }
-
-                        if (selectedGroup) {
                             setTimeout(() => {
-                                var $cellsAnimOverlay = $('<div class="cellsAnim2"></div>');
-                                $selectedImage.parent().append($cellsAnimOverlay); 
-                                createCells($cellsAnimOverlay);  
-                                animateCells2($cellsAnimOverlay);
-                                
-                                $selectedImage.attr('src', imgSrc);
-                                setTimeout(() => {
-                                    $('#close-icon').css('opacity', '1')
-                                    $cellsAnimOverlay.remove();
-                                }, 700);
+                                $img.css('opacity', '0');
+                            }, 2200);
+                        });
 
-                            }, 500);
-
-                            $imageContainer.css('display','flex');
-
-                            // todas las celdas menos la fila1 se desplazan hacia abajo
-                            $playground.find('.pgcell').each(function() {
-                                const cellNumber = $(this).data('number');
-                                if (cellNumber >= 8 && cellNumber <= 49) {
-                                    $(this).css('transform', 'translateY(73vh)');
-                                    $(this).css('transition', '.7s ease');
-                                }
-                            });
-
-                            // en las celdas 2-7 se muestran las miniaturas del grupo
-                            for (let i = 0; i < selectedGroup.length; i++) {
-                                const $targetCell = $(`.pgcell:nth-child(${i + 2})`);  
-                                const $thumbnail = $('<img>').attr('src', `media/pg/${selectedGroup[i]}`).addClass('thumbnail');
-                                
-                                $targetCell.find('img').remove();
-                                
-                                $targetCell.append($thumbnail);
-                                setTimeout(() => {
-                                    $thumbnail.css('opacity', '1');  
-                                }, 500);
-
-                                $targetCell.off('mouseenter mouseleave');  
-                                $targetCell.on('click', function() {
-                                    const clickedImgSrc = $thumbnail.attr('src');
-                                    if (clickedImgSrc) {
-                                        $selectedImage.attr('src', clickedImgSrc); 
+                        // al hacer click en una celda se muestra su imagen en grande
+                        $cell.on('click', function() {
+                            const imgSrc = $img.attr('src');
+                            if (imgSrc) {
+                                let selectedGroup = null;
+                                for (let group in imageGroups) {
+                                    if (imageGroups[group].includes(imgSrc.split('/').pop())) {
+                                        selectedGroup = imageGroups[group];
+                                        break;
                                     }
-                                });
-                            }
-                            
-                            $playground.find('.pgcell').off('mouseenter mouseleave');
+                                }
 
-                            // al cerrar en la X todo vuelve al inicio
-                            $('#close-icon').on('click', function() {
-                                $imageContainer.css('opacity', '0');
-                                $imageContainer.css('transition', '.7s');
-                                $playground.find('.pgcell img.thumbnail').css('opacity', '0');
-                                $playground.find('.pgcell img.thumbnail').css('transition', '.7s'); 
+                                if (selectedGroup) {
+                                    setTimeout(() => {
+                                        var $cellsAnimOverlay = $('<div class="cellsAnim2"></div>');
+                                        $selectedImage.parent().append($cellsAnimOverlay); 
+                                        createCells($cellsAnimOverlay);  
+                                        animateCells2($cellsAnimOverlay);
+                                        
+                                        $selectedImage.attr('src', imgSrc);
+                                        setTimeout(() => {
+                                            $('#close-icon').css('opacity', '1')
+                                            $cellsAnimOverlay.remove();
+                                        }, 700);
 
+                                    }, 500);
 
-                                setTimeout(() => {
-                                    $imageContainer.css('display', 'none');
-                                    $imageContainer.css('opacity', '1');
-                                    $playground.find('.pgcell img.thumbnail').remove();  
-                                    $selectedImage.attr('src', '');  
+                                    $imageContainer.css('display','flex');
+
+                                    // todas las celdas menos la fila1 se desplazan hacia abajo
                                     $playground.find('.pgcell').each(function() {
                                         const cellNumber = $(this).data('number');
+                                        $('#playground').css('border', 'none');
                                         if (cellNumber >= 8 && cellNumber <= 49) {
-                                            $(this).css('transform', 'translateY(0)');  
+                                            $(this).css('transform', 'translateY(73vh)');
+                                            $(this).css('transition', '.7s ease');
                                         }
                                     });
 
-                                    $playground.find('.pgcell').each(function() {
-                                        const $cell = $(this);
-                                        $cell.on('mouseenter', function() {
-                                            const randomImage = getRandomImage();
-                                            $cell.find('img').attr('src', `media/pg/${randomImage}`).css('opacity', '1');
-                                        });
+                                    // en las celdas 2-7 se muestran las miniaturas del grupo
+                                    for (let i = 0; i < selectedGroup.length; i++) {
+                                        const $targetCell = $(`.pgcell:nth-child(${i + 1})`);  
+                                        const $thumbnail = $('<img>').attr('src', `media/pg/${selectedGroup[i]}`).addClass('thumbnail');
+                                        
+                                        $targetCell.find('img').remove();
+                                        
+                                        $targetCell.append($thumbnail);
+                                        setTimeout(() => {
+                                            $thumbnail.css('opacity', '1');  
+                                        }, 500);
 
-                                        $cell.on('mouseleave', function() {
-                                            setTimeout(() => {
-                                                $cell.find('img').css('opacity', '0');
-                                            }, 2200);
+                                        $targetCell.off('mouseenter mouseleave');  
+                                        $targetCell.on('click', function() {
+                                            const clickedImgSrc = $thumbnail.attr('src');
+                                            if (clickedImgSrc) {
+                                                $selectedImage.attr('src', clickedImgSrc); 
+                                            }
                                         });
+                                    }
+                                    
+                                    $playground.find('.pgcell').off('mouseenter mouseleave');
+
+                                    // al cerrar en la X todo vuelve al inicio
+                                    $('#close-icon').on('click', function() {
+                                        $imageContainer.css('opacity', '0');
+                                        $imageContainer.css('transition', '.7s');
+                                        $playground.find('.pgcell img.thumbnail').css('opacity', '0');
+                                        $playground.find('.pgcell img.thumbnail').css('transition', '.7s'); 
+                                        $('#playground').css('border', '');
+
+                                        setTimeout(() => {
+                                            $imageContainer.css('display', 'none');
+                                            $imageContainer.css('opacity', '1');
+                                            $playground.find('.pgcell img.thumbnail').remove();  
+                                            $selectedImage.attr('src', '');  
+                                            $playground.find('.pgcell').each(function() {
+                                                const cellNumber = $(this).data('number');
+                                                if (cellNumber >= 8 && cellNumber <= 49) {
+                                                    $(this).css('transform', 'translateY(0)');  
+                                                }
+                                            });
+
+                                            $playground.find('.pgcell').each(function() {
+                                                const $cell = $(this);
+                                                $cell.on('mouseenter', function() {
+                                                    const randomImage = getRandomImage();
+                                                    $cell.find('img').attr('src', `media/pg/${randomImage}`).css('opacity', '1');
+                                                });
+
+                                                $cell.on('mouseleave', function() {
+                                                    setTimeout(() => {
+                                                        $cell.find('img').css('opacity', '0');
+                                                    }, 2200);
+                                                });
+                                            });
+
+                                        }, 700);
                                     });
+                                }
+                            }
+                        });
 
-                                }, 700);
-                            });
-                        }
+                        $playground.append($cell);
+                        cellNumber++;
                     }
-                });
-
-                $playground.append($cell);
-                cellNumber++;
+                }
             }
-        }
 
-        // Función para obtener una imagen aleatoria
-        function getRandomImage() {
-            const randomIndex = Math.floor(Math.random() * images.length);
-            return images[randomIndex];
-        }
+            // Función para obtener una imagen aleatoria
+            function getRandomImage() {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                return images[randomIndex];
+            }
+
+
     });
+        
 
 
 
 
     // AV
-    // al hacer click en el boton de audiovisuales
-    $('#dosges, #projs').click(function() {
+    $('#av').click(function() {
+        $('#transicion .cellT').css('display', 'block');
+        transCurtain();
 
-    });
-    $('#av').click(function(){
-        $('#transicion .cellT').css('display', 'block')
-        transCurtain()
-        setTimeout(() => {        
-            if (currentProjectId) {
-                $('#audiov').removeClass('hidden');
-                $('#playground').addClass('hidden');
-            }
-        }, 1300);
-
-        event.preventDefault(); 
-        $('#cellsAnim .cell').css('display', 'block');
-        animateCells(false);
-        
         var spans = $('#index').find('span');
         spans.each(function(index) {
             $(this).css('transform', 'translateY(100%)');
             $('#index').css('pointer-events', 'none');
         });
 
-        $('#audiov').removeClass('hidden');
-        $('#audiov .desarrollo').show();
+        setTimeout(() => {
+            window.location.href = 'audiovisual.html';
+        }, 1300); 
 
         $('#av').css({
             "text-decoration-color": "#000"
         });
 
-        $('#projs, #playgr').css({
+        $('#projs, #playgr, #abt').css({
             "text-decoration-color": ""
         });
 
-        $('#forscroll').hide();
-
-    })
+    });
 
 
     // funcionamiento de cambio de proyecto en las cols
@@ -1087,6 +1080,24 @@ $(document).ready(function() {
 
     
 
+    // ABOUT
+    $('#abt').click(function() {
+        $('#transicion .cellT').css('display', 'block');
+        transCurtain();
+
+        var spans = $('#index').find('span');
+        spans.each(function(index) {
+            $(this).css('transform', 'translateY(100%)');
+            $('#index').css('pointer-events', 'none');
+        });
+
+        setTimeout(() => {
+            window.location.href = 'about.html';
+        }, 1300); 
+
+    
+
+    });
     
    
 
