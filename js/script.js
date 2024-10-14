@@ -42,6 +42,16 @@ $(document).ready(function() {
         );
     }, 300);
 
+    setTimeout(() => {
+        var spans = $('#avfirst span');
+        spans.each(function(index) {
+            $(this).css('transform', 'translateY(0%)');
+        });
+        $('#avfirstvid video').css('opacity', '1');
+        $('#about .ab-ontop span').css('position', 'fixed');
+        $('.ontop2').css('height', '3rem');
+    }, 1600);
+
 
     //CELLSANIM AL PINCHAR PROYECTO
     //crear cuadricula
@@ -97,7 +107,7 @@ $(document).ready(function() {
         });
         
         setTimeout(() => {
-            $(shuffledCells).css('background-color', '#ebebe9');
+            $(shuffledCells).css('background-color', 'var(--b)');
             $(shuffledCells).css('display', '');
             $('#coverDoble').hide();
             cellsAnim.hide();
@@ -120,7 +130,7 @@ $(document).ready(function() {
 
         $(shuffledCellsT).each(function(index) {
             setTimeout(() => {
-                $(this).css('background-color', '#ebebe9');
+                $(this).css('background-color', 'var(--b)');
             }, index * delay);
             
         });
@@ -562,7 +572,7 @@ $(document).ready(function() {
         });
 
         setTimeout(() => {
-            $(shuffledCells2).css('background-color', '#ebebe9');
+            $(shuffledCells2).css('background-color', 'var(--b)');
             cellsAnim2.hide();
         }, animationDuration2 + 200);
     }
@@ -1028,7 +1038,7 @@ $(document).ready(function() {
             const row = $('<div class="row"></div>');
             row.css({
                 height: rowHeight,
-                backgroundColor: '#ebebe9'
+                backgroundColor: 'var(--b)'
             });
             $rowsAnim.append(row);
         }
