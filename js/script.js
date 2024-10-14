@@ -10,10 +10,23 @@ $(document).ready(function() {
 
     //ANIMACION LETRAS HOME
     setTimeout(() => {
-        var spans = $('#dosges span, #menu span, #index a span');
+        var spans = $('#dosges span, #menu span, #index a span, #about span');
         spans.each(function(index) {
             $(this).css('transform', 'translateY(0%)');
         });
+        $('#about .proj_foto').css('opacity', '1');
+
+        var currentPage = window.location.pathname.split('/').pop();
+        if (currentPage === 'audiovisual.html') {
+            $('#cellsAnim .cell').css('display', 'block');
+            animateCells(true);
+            $('#audiov').show();
+        } else if (currentPage === 'playground.html') {
+            $('#cellsAnim .cell').css('display', 'block');
+            animateCells(true);
+            $('#pg-container').css('display', 'flex');
+        }
+        
 
         //HOVER DEL INDEX
         $('#index a').hover(
@@ -796,13 +809,6 @@ $(document).ready(function() {
             window.location.href = 'playground.html';
         }, 1300); 
 
-        $('#playgr').css({
-            "text-decoration-color": "#000"
-        });
-
-        $('#projs, #av, #abt').css({
-            "text-decoration-color": ""
-        });
     });
    
 
@@ -964,38 +970,26 @@ $(document).ready(function() {
 
 
     // AV
-    $('#av').click(function(event) {
-        event.preventDefault(); 
-        $('#cellsAnim .cell').css('display', 'block')
+    $('#av').click(function() {
+        $('#transicion .cellT').css('display', 'block');
+        transCurtain();
         
-        animateCells(false);
-    
         var spans = $('#index').find('span');
         spans.each(function(index) {
             $(this).css('transform', 'translateY(100%)');
             $('#index').css('pointer-events', 'none');
         });
 
-        $('#audiov').removeClass('hidden');
-        $('#audiov').show();
-
-
-        $('#playground').addClass('hidden');
+        setTimeout(() => {
+            window.location.href = 'audiovisual.html';
+        }, 1300); 
 
         $('#av').css({
-            "text-decoration-color": "#000",
             "pointer-events": "none"
-
-        });
-        $('#projs').css({
-            "pointer-events": "all"
         });
         $('#projs, #playgr').css({
             "text-decoration-color": ""
         });
-
-        $('#forscroll').hide();
-
     });
 
     $(document).ready(function() {
@@ -1099,10 +1093,20 @@ $(document).ready(function() {
         setTimeout(() => {
             window.location.href = 'about.html';
         }, 1300); 
-
-    
+        
 
     });
+
+
+    // hora local en directo
+    function updateTime() {
+        const options = { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const currentTime = new Intl.DateTimeFormat([], options).format(new Date());
+        $('#localtime').text(`${currentTime} MAD`);
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
     
    
 
