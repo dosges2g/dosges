@@ -86,9 +86,12 @@ a span {
 #projs, #playgr, #av, #abt {
     text-decoration: line-through;
     text-decoration-thickness: 1.5px;
-    text-decoration-color: transparent;
-    transition: text-decoration-color 1.2s ease;
+    text-decoration-color: #000;
+    transition: text-decoration-color .8s ease;
     cursor: pointer;
+}
+#av {
+    margin-bottom: 19rem;
 }
 #index {
     position: fixed;
@@ -367,6 +370,7 @@ section.desarrollo div.proj_txts span {
 /* PROJECTS */
 
 .fr1 {
+    margin: 35rem 0 20rem 0;
     display: flex;
     flex-direction: row;
     overflow-x: clip;
@@ -550,6 +554,9 @@ video {
 #audiov {
     display: none;
 }
+#audiov .fr1 {
+    margin: 0;
+}
 .blankspace {
     height: 90vh;
     width: 100%;
@@ -671,8 +678,50 @@ video {
 }
 
 
+
+/* cosas movil */
+#menu-ph {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 1.5rem;
+    z-index: 101;
+}
+#menu-ph a {
+    color: #000;
+    display: flex;
+}
+main #menu-ph #menu-ph-btn-close {
+    display: none;
+    color: var(--b);
+}
+.index-ph {
+    display: none;
+}
+.bte-ph {
+    display: none;
+}
+#av-ph {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.av-ph-top {
+    position: sticky;
+    top: 0;
+    padding: 7rem 0 2rem 0;
+    width: 100%;
+    z-index: 30;
+    background-color: var(--b);
+}
+.av-ph-all {
+    margin-top: 8rem;
+}
+
+
 /* MEDIA QUERIES */
-@media screen and (min-width: 992px) {
+@media screen and (max-width: 992px) {
     * {
         font-size: 9pt;
     }
@@ -680,8 +729,121 @@ video {
 
 
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
     * {
         font-size: 11pt;
     }
+    #forscroll {
+        height: 160vh;
+    }
+    
+    #menu-ph {
+        display: block;
+    }
+    #menu {
+        width: 100%;
+        margin: 0;
+        background-color: #222222;
+        align-items: flex-start;
+        row-gap: .5rem;
+        height: 0;
+        padding: 0;
+        transition: height .8s ease, padding .8s ease;
+    }
+    #projs, #playgr, #av, #abt {
+        color: transparent;
+        pointer-events: none;
+        overflow: visible;
+        text-decoration-color: transparent;
+    }
+    #av {
+        margin-bottom: 0;
+    }
+    #index {
+        margin: 2rem;
+        width: 85vw;
+    }
+    #index a span {
+        flex: 0 0 20%;
+    }
+    .index-ph {
+        display: flex;
+    }
+    .index-desk {
+        display: none;
+    }
+    .fr1 {
+        flex-direction: column;
+        padding: 2rem;
+        margin: 35rem 0 10rem 0;
+    }
+    .fr1 > div {
+        width: 100%;
+    }
+    .text1 {
+        display: none;
+    }
+    .fr1 .col-right {
+        height: auto;
+        justify-content: flex-start;
+    }
+    .title {
+        font-size: 6rem;
+    }
+    .pretitle {
+        bottom: 6rem;
+    }
+    .credits {
+        width: auto;
+        padding: 0rem 0rem 15rem 3rem;
+    }
+    .bte-ph {
+        display: block;
+    }
+    .bte {
+        display: none;
+    }
+    .miniaturas.show {
+        margin: 6rem auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: auto;
+        bottom: 0;
+        right: auto;
+    }
+    .page2 .overlay img, .page2 .overlay video {
+        margin-top: -7rem;
+        height: auto;
+    }
+    #playground {
+        height: 60vh;
+        width: 80vw;
+    }
+    #image-container {
+        top: 30%;
+    }
+    #image-container img {
+        width: 90%;
+    }
+    #close-icon {
+        top: 1rem;
+        right: 5%;
+    }
+    #audiov .page2 {
+        margin-top: 4rem;
+    }
+    #audiov .fr1 {
+        display: none;
+    }
+    #av-ph {
+        display: flex;
+    }
+    .blankspace {
+        height: 60vh;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 6rem 0;
+    }
 }
+
+

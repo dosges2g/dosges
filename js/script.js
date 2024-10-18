@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     //ANIMACION LETRAS HOME
     setTimeout(() => {
-        var spans = $('#dosges span, #menu span, #index a span, #about span');
+        var spans = $('#dosges span, #menu span, #index a span, #about span, #menu-ph-btn span, #av-ph span');
         spans.each(function(index) {
             $(this).css('transform', 'translateY(0%)');
         });
@@ -170,6 +170,11 @@ $(document).ready(function() {
         $('#coverDoble').css('background-image', 'url(media/' + projectFull + '_cover.webp)');
 
         animateCells(true);
+
+        setTimeout(() => { 
+            $('main').css('background-image', 'none');
+        }, 1500);     
+
     
         var spans = $('#index').find('span');
         spans.each(function(index) {
@@ -183,13 +188,6 @@ $(document).ready(function() {
 
         $('#' + projectFull).removeClass('hidden');
         currentProjectId = projectFull;
-
-        $('#projs').css({
-            "text-decoration-color": "#000"
-        });
-        $('#av, #playgr, #abt').css({
-            "text-decoration-color": ""
-        });
 
     });
 
@@ -1120,5 +1118,90 @@ $(document).ready(function() {
     
    
 
+
+
+    // responsive
+    $('#menu-ph-btn').click(function() {
+        $(this).hide();
+        $('#menu').css('height', '18%');
+        $('#menu').css('padding', '1.5rem 1rem');
+        var currentPage = window.location.pathname.split('/').pop();
+            if (currentPage === 'index.html') {
+                $('#projs').css('text-decoration-color', 'var(--b)');
+            }else if (currentPage === 'playground.html') {
+                $('#playgr').css('text-decoration-color', 'var(--b)');
+            }else if (currentPage === 'audiovisual.html') {
+                $('#av').css('text-decoration-color', 'var(--b)');
+            }else if (currentPage === 'about.html') {
+                $('#abt').css('text-decoration-color', 'var(--b)');
+            }
+        $('#projs, #playgr, #av, #abt').css('color', 'var(--b)');
+        $('#projs, #playgr, #av, #abt').css('pointer-events', 'all');
+        $('main #menu-ph #menu-ph-btn-close').css('display', 'block');
+    })
+
+    $('#menu-ph-btn-close').click(function() {
+        $(this).hide();
+        $('#menu').css('height', '');
+        $('#menu').css('padding', '');
+        $('#projs, #playgr, #av, #abt').css('color', '');
+        $('#projs, #playgr, #av, #abt').css('pointer-events', '');
+        $('#projs, #playgr, #av, #abt').css('text-decoration-color', 'transparent');
+        $('main #menu-ph #menu-ph-btn').css('display', 'block');
+    })
+
+    $('.av-ph-top .av-proj').not(':first').addClass('hidden').css('display', 'none');
+    let avCurrentProject = '';
+
+    $(window).on('scroll', function() {
+        const scrollPosition = $(window).scrollTop();
+
+        $('.av-ph-all .av-proj').each(function(index) {
+            const project = $(this);
+            const offsetTop = project.offset().top;
+            const projectHeight = project.outerHeight();
+
+            if (scrollPosition >= offsetTop - window.innerHeight / 2 && scrollPosition < offsetTop + projectHeight) {
+                const activeProject = project.attr('class').split(' ')[1]; 
+
+                if (activeProject !== avCurrentProject) {
+                    avCurrentProject = activeProject;
+                    updateAvTop(activeProject);
+                }
+            }
+        });
+    });
+
+    let isFirstUpdate = true;
+    let currentProject = '';
+
+    function updateAvTop(project) {
+        if (isFirstUpdate || project === currentProject) {
+            currentProject = project; 
+            if (isFirstUpdate) {
+                isFirstUpdate = false; 
+            }
+            return; 
+        }
+
+        $('.av-ph-top .av-proj').each(function() {
+            $(this).addClass('hidden');
+            $(this).css({
+                'display': 'none',
+            });
+        });
+
+        const $newProject = $(`.av-ph-top .${project}`);
+        $newProject.removeClass('hidden');
+        $newProject.css({
+            'display': 'flex',
+        });
+
+        previousProject = currentProject; 
+        currentProject = project; 
+    }
+
+
+    
 
 });
