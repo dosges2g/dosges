@@ -226,8 +226,10 @@ $(document).ready(function() {
         if (scrollTop + windowHeight >= documentHeight - tolerance) {
             $('.title').css('color', '');
             $('.title2').css('display', 'block');
+            $('.scrmore').css('opacity', '1');
         } else {
             $('.title2').css('display', '')
+            $('.scrmore').css('opacity', '');
         }
 
         // title2: next project
@@ -1092,12 +1094,6 @@ $(document).ready(function() {
         $('#transicion .cellT').css('display', 'block');
         transCurtain();
 
-        var spans = $('#index').find('span');
-        spans.each(function(index) {
-            $(this).css('transform', 'translateY(100%)');
-            $('#index').css('pointer-events', 'none');
-        });
-
         setTimeout(() => {
             window.location.href = 'about.html';
         }, 1300); 
@@ -1123,7 +1119,7 @@ $(document).ready(function() {
     // responsive
     $('#menu-ph-btn').click(function() {
         $(this).hide();
-        $('#menu').css('height', '18%');
+        $('#menu').css('height', '9.5rem');
         $('#menu').css('padding', '1.5rem 1rem');
         var currentPage = window.location.pathname.split('/').pop();
             if (currentPage === 'index.html') {
