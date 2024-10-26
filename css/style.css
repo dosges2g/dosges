@@ -624,6 +624,17 @@ video {
 #about span, #about a {
     font-size: .7rem;
 }
+#about .imprint {
+    position: fixed;
+    top: 35%;
+    left: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.imprint span {
+    color: #b2b2b2;
+}
 #about .proj_foto {
     position: absolute;
     left: 31%;
@@ -682,7 +693,7 @@ video {
 }
 .ab-center {
     width: 36%;
-    left: 24vw;
+    flex: 0 0 45%;
 }
 .ab-right {
     width: 20%;
@@ -870,11 +881,20 @@ main #menu-ph #menu-ph-btn-close {
     .blankspace .credits {
         padding: 7rem 0 10rem 0;
     }
+    #about {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     #about .proj_foto {
-        left: 50%;
         width: 58vw;
-        top: 5%;
-        transform: translate(-50%, 50%);
+        margin-top: 60%;
+        position: sticky;
+        top: 7rem;
+        left: auto;
+    }
+    .ab-ontop {
+        flex-direction: column;
     }
     #about .ab-ontop a {
         display: flex;
@@ -883,6 +903,24 @@ main #menu-ph #menu-ph-btn-close {
     }
     .ab-ontop .proj_txts:first-child {
         left: auto;
+        width: 100%;
+        position: relative;
+    }
+    #about .ab-ontop span {
+        position: relative;
+    }
+    .ab-info {
+        flex-direction: column;
+        row-gap: 4rem;
+        padding: 3rem;
+        position: relative;
+        margin-top: 20%;
+        width: 100%;
+    }
+    .ab-left {
+        order: 3;
+    }
+    .ab-left, .ab-center, .ab-right {
         width: 100%;
     }
 }
