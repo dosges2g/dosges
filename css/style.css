@@ -466,21 +466,43 @@ video {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
+    position: relative;
+    overflow-y: scroll;
+    height: auto;
+    row-gap: 2rem;
 }
 #pg > div {
     width: 18%;
-    position: absolute;
-    transition: opacity 0.8s ease;
+    position: relative;
+    opacity: 0;
+    transition: opacity .3s ease, transform .5s ease-in-out, margin-bottom .5s ease-in-out;
 }
 #pg > div img {
     width: 100%;
     object-fit: cover;
 }
-#pg > div:nth-child(1) {
+#pg .ll {
+    margin-left: 2%;
+}
+#pg .lc {
+    margin-left: 20%;
+}
+#pg .rc {
+    margin-left: 42%;
+}
+#pg .rr {
+    margin-left: 65%;
+}
+.pgtxt {
+    position: fixed;
+    top: 15%;
+    left: 5%;
+    color: var(--b);
+    transition: color .2s ease;
+    text-align: left;
+    font-size: .9rem;
+}
+/* #pg > div:nth-child(1) {
     z-index: 2;
     margin-left: 2%;
 }
@@ -514,7 +536,7 @@ video {
 }
 .nomargins {
     margin-left: 0;
-}
+} */
 
 
 
@@ -590,7 +612,6 @@ video {
     width: 17vw;
     top: 22%;
     opacity: 0;
-    transition: 1.2s;
 }
 #about .proj_foto img {
     width: 100%;
@@ -647,7 +668,6 @@ video {
 .ab-right {
     width: 20%;
     right: 12vw;
-    text-align: right;
 }
 .abtlinks {
     text-decoration: underline;
@@ -698,7 +718,19 @@ main #menu-ph #menu-ph-btn-close {
 .av-ph-all {
     margin-top: 8rem;
 }
-
+.ab-bottom {
+    display: none;
+}
+.gito i {
+    width: .7rem;
+    margin: .15rem 3rem 0 -.6rem;
+}
+.gito i path {
+    fill: #000;
+}
+.imp span {
+    color: #767676;
+}
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 992px) {
@@ -795,22 +827,23 @@ main #menu-ph #menu-ph-btn-close {
         margin-top: -7rem;
         height: auto;
     }
-    .pgtxt {
-        bottom: 6rem;
+    #pg {
+        padding: 4rem 1rem 1rem 1rem;
     }
-    #playground {
-        height: 60vh;
-        width: 80vw;
+    #pg > div {
+        width: 40%;
     }
-    #image-container {
-        top: 30%;
+    #pg .rr {
+        margin-left: 60%;
     }
-    #image-container img {
-        width: 90%;
+    #pg .lc {
+        margin-left: 17%;
     }
-    #close-icon {
-        top: 1rem;
-        right: 5%;
+    #pg .rc {
+        margin-left: 35%;
+    }
+    #pg .ll {
+        margin-left: 0%;
     }
     #audiov .page2 {
         margin-top: 4rem;
@@ -844,6 +877,14 @@ main #menu-ph #menu-ph-btn-close {
     }
     .ab-ontop {
         flex-direction: column;
+        top: 12%;
+    }
+    .ontop2 {
+        position: fixed;
+        mix-blend-mode: difference;
+        top: 9%;
+        left: 50%;
+        transform: translate(-50%, 50%);
     }
     #about .ab-ontop a {
         display: flex;
@@ -853,17 +894,27 @@ main #menu-ph #menu-ph-btn-close {
     .ab-ontop .proj_txts:first-child {
         left: auto;
         width: 100%;
-        position: relative;
+        position: fixed;
+        mix-blend-mode: difference;
+        top: 6%;
+        transform: translate(-50%, 50%);
     }
     #about .ab-ontop span {
         position: relative;
+        font-size: 2.7rem;
+        top: 9%;
+    }
+    #about .ab-ontop .ontop2 span {
+        font-size: 1rem;
+        position: relative;
+        top: 15%;
     }
     .ab-info {
         flex-direction: column;
-        row-gap: 4rem;
+        row-gap: 6rem;
         padding: 3rem;
-        position: relative;
-        margin-top: 20%;
+        position: absolute;
+        top: 65%;
         width: 100%;
     }
     .ab-left {
@@ -871,6 +922,28 @@ main #menu-ph #menu-ph-btn-close {
     }
     .ab-left, .ab-center, .ab-right {
         width: 100%;
+        flex: 0 0 0;
+    }
+    .ab-bottom {
+        display: block;
+    }
+    .ab-bottom.git {
+        order: 4;
+        display: flex;
+        flex-direction: column;
+    }
+    .gito {
+        display: flex;
+        flex-direction: row;
+    }
+    .ab-bottom {
+        order: 5;
+    }
+    #about .imprint {
+        display: none;
+    }
+    #about span, #about a {
+        font-size: .8rem;
     }
 }
 

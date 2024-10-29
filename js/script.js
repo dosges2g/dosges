@@ -25,6 +25,8 @@ $(document).ready(function() {
             $('#cellsAnim .cell').css('display', 'block');
             animateCells(true);
             $('#pg-container').css('display', 'flex');
+            $('#pg > div').css('opacity', '1');
+            $('.pgtxt').css('color', 'rgb(147 147 147)');
         }
         
 
@@ -48,8 +50,54 @@ $(document).ready(function() {
             $(this).css('transform', 'translateY(0%)');
         });
         $('#avfirstvid video').css('opacity', '1');
-        $('#about .ab-ontop span').css('position', 'fixed');
-        $('.ontop2').css('height', '3rem');
+
+        function applyFixedPosition() {
+            if ($(window).width() > 768) {
+                $('#about .ab-ontop span').css('position', 'fixed');
+                $('.ontop2').css('height', '3rem');
+
+                $(window).on("scroll", function() {
+                    var $colLeft = $(".col-left");
+                    var $colRight = $(".col-right");
+
+                    var rect = $colLeft[0].getBoundingClientRect();
+                    var windowHeight = $(window).height();
+
+                    if (rect.bottom < windowHeight) {
+                        $colRight.css("position", "revert-layer");
+                    } else {
+                        $colRight.css("position", "sticky");
+                    }
+                });
+            } else {
+                $('#about .ab-ontop span').css('position', '');
+                $('.ontop2').css('height', '');
+
+                var $projFoto = $('#about .proj_foto'); // Selecciona el elemento con la clase .proj_foto
+    var stickyTop = $projFoto.offset().top; // Obtiene la posición inicial del elemento
+
+    $(window).on('scroll', function() {
+        var scrollTop = $(this).scrollTop(); // Obtiene la posición de desplazamiento actual
+
+        // Verifica si el scroll ha alcanzado o superado la posición del elemento
+        if (scrollTop >= stickyTop) {
+            $projFoto.css({
+                'position': 'fixed', // Cambia a position: fixed
+                'margin-top': '0' // Restablece el margin-top a 0
+            });
+        } else {
+            $projFoto.css({
+                'position': 'sticky', // Restablece a position: sticky
+                'margin-top': '60%' // Restablece el margin-top original
+            });
+        }
+    });
+            }
+        } applyFixedPosition();
+
+        $(window).resize(function() {
+            applyFixedPosition();
+        });
     }, 1600);
 
 
@@ -578,7 +626,7 @@ $(document).ready(function() {
     }
 
     // llamar a la animacion cuando las imagenes aparecen un 50%
-    var $elements = $('section.desarrollo div.proj_foto');
+    var $elements = $('section.desarrollo div.proj_foto').not('.no-anim');
 
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
@@ -787,19 +835,7 @@ $(document).ready(function() {
     
 
     
-    $(window).on("scroll", function() {
-        var $colLeft = $(".col-left");
-        var $colRight = $(".col-right");
-
-        var rect = $colLeft[0].getBoundingClientRect();
-        var windowHeight = $(window).height();
-
-        if (rect.bottom < windowHeight) {
-            $colRight.css("position", "revert-layer");
-        } else {
-            $colRight.css("position", "sticky");
-        }
-    });
+    
 
 
 
@@ -820,37 +856,51 @@ $(document).ready(function() {
         }, 1300); 
 
     });
-   
-    $('#pg .ll, #pg .lc, #pg .rc, #pg .rr').addClass('nomargins');
-    $('#pg > div:first-child').click(function() {
-        $('#pg > div').css('opacity', '0')
-        setTimeout(() => {
-            $('#pg > div').css('opacity', '1');
-  
-
-
-            $('#pg > div').addClass('no-styles');
-            $('#pg .ll, #pg .lc, #pg .rc, #pg .rr').removeClass('nomargins');
-            $('#pg .ll').css('margin-left', '2%');
-            $('#pg .lc').css('margin-left', '20%');
-            $('#pg .rc').css('margin-left', '42%');
-            $('#pg .rr').css('margin-left', '65%');
-            $('#pg').css({
-                'position': 'relative',
-                'align-items': 'flex-start',
-                'justify-content': 'flex-start',
-                'top': '0'
-            })
-            $('#pg > div').css({
-                'position': 'relative'
-            })
-            
-        }, 1000);
-
-    })
         
 
+    var originalContent = $('#pg').html(); 
+    for (var i = 0; i < 30; i++) {
+        $('#pg').append(originalContent);
+    }
 
+    $('#pg > div.rr, #pg > div.rc').each(function() {
+        $(this).on('click', function() {
+            var currentHeight = $(this).outerHeight();
+            var newHeight = currentHeight * 1.8;
+
+            if ($(this).css('transform') === 'none') {
+                $(this).css({
+                    'transform': 'scale(1.8)', 
+                    'transform-origin': 'top right', 
+                    'margin-bottom': (newHeight - currentHeight) + 'px' 
+                });
+            } else {
+                $(this).css({
+                    'transform': '', 
+                    'margin-bottom': '0' 
+                });
+            }
+        });
+    });
+    $('#pg > div.ll, #pg > div.lc').each(function() {
+        $(this).on('click', function() {
+            var currentHeight = $(this).outerHeight();
+            var newHeight = currentHeight * 1.8;
+
+            if ($(this).css('transform') === 'none') {
+                $(this).css({
+                    'transform': 'scale(1.8)', 
+                    'transform-origin': 'top left', 
+                    'margin-bottom': (newHeight - currentHeight) + 'px' 
+                });
+            } else {
+                $(this).css({
+                    'transform': '', 
+                    'margin-bottom': '0' 
+                });
+            }
+        });
+    });
 
 
     // AV
@@ -976,6 +1026,7 @@ $(document).ready(function() {
     });
 
 
+
     // hora local en directo
     function updateTime() {
         const options = { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
@@ -1071,7 +1122,7 @@ $(document).ready(function() {
         currentProject = project; 
     }
 
-
+    
     
 
 });
