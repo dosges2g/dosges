@@ -291,10 +291,12 @@ $(document).ready(function() {
 
             if (scrollTop + elementHeight >= scrollHeight - tolerance) {
                 $('.title2txt').css('transform', 'scaleY(1)');
+                $('.scrmore').css('opacity', '0');
                 $('.title1').css('transform', 'scaleY(0)');
                 $('.title1').css('bottom', '-1.5rem');
             } else if (scrollTop + elementHeight < scrollHeight){
                 $('.title2txt').css('transform', '');
+                $('.scrmore').css('opacity', '1');
                 $('.title1').css('transform', 'scaleY(1)');
                 $('.title1').css('bottom', '');
             }
@@ -859,7 +861,7 @@ $(document).ready(function() {
         
 
     var originalContent = $('#pg').html(); 
-    for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < 15; i++) {
         $('#pg').append(originalContent);
     }
 
