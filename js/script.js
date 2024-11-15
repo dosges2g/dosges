@@ -245,6 +245,7 @@ $(document).ready(function() {
     $(window).scroll(function() {
         const cover2 = $('#cover2');
         const cover2Height = cover2.height();
+        const backgroundSize = cover2.css('background-size');
         const scrollTop = $(this).scrollTop();
         const windowHeight = $(window).height();
         const documentHeight = $(document).height();
@@ -264,7 +265,7 @@ $(document).ready(function() {
         }
 
         // miniaturas, title, desarrollo
-        if (cover2.css('background-size').includes('8%')) {
+       if (backgroundSize && backgroundSize.includes('8%')) {
             console.log(cover2.css('background-size'));
             showMiniaturas();
             cover2.css('opacity', '0');
