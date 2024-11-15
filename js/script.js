@@ -252,19 +252,27 @@ $(document).ready(function() {
         
         
         // reducir cover2
-        if (scrollTop > cover2Height / 4) {
+        if (scrollTop > cover2Height / 6) {
             cover2.css('background-size', '8%');
+            console.log('cover2h' + cover2Height);
+            console.log(cover2.css('background-size'));
+
+            
         } else {
+            console.log('cover2h' + cover2Height);
             cover2.css('background-size', '100%');
         }
 
         // miniaturas, title, desarrollo
-        if (cover2.css('background-size') === '8%') {
+        if (cover2.css('background-size').includes('8%')) {
+            console.log(cover2.css('background-size'));
             showMiniaturas();
             cover2.css('opacity', '0');
             $('.desarrollo').show();
             $('.title').css('color', 'rgb(203 203 203)')
         } else {
+            console.log('adios');
+            
             hideMiniaturas();
             cover2.css('opacity', '1');
             $('.desarrollo').hide();
