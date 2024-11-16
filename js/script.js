@@ -467,7 +467,7 @@ $(document).ready(function() {
         currentImageFiles = mediaFiles.map(file => file.split('/').pop());
     }
 
-    function checkVisibleProject(observer) {
+    function checkVisibleProject(mutationsList, observer) {
         const projActual = $('.fullProj:not(.hidden)');
         if (projActual.length > 0) {
 
