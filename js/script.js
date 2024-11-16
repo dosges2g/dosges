@@ -250,8 +250,8 @@ $(document).ready(function() {
         const windowHeight = $(window).height();
         const documentHeight = $(document).height();
         const tolerance = 5;
-        
 
+        
         var currentPage = window.location.pathname.split('/').pop();
         if (currentPage === 'index.html') {
             // reducir cover2
