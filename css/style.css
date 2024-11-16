@@ -709,7 +709,7 @@ main #menu-ph #menu-ph-btn-close {
 .av-ph-top {
     position: sticky;
     top: 0;
-    padding: 7rem 0 2rem 0;
+    padding: 6rem 0 2rem 0;
     width: 100%;
     z-index: 30;
     background-color: var(--b);
@@ -732,10 +732,21 @@ main #menu-ph #menu-ph-btn-close {
 }
 
 /* MEDIA QUERIES */
-@media screen and (max-width: 992px) {
+
+@media screen and (max-width: 1300px) {
+    .fr1 {
+        padding: 7rem 9rem 0 9rem;
+    }
+}
+
+@media screen and (max-width: 1090px) {
     * {
         font-size: 9pt;
     }
+    .fr1 {
+        padding: 7rem 5rem 0 5rem;
+    }
+    
 }
 
 
@@ -802,7 +813,8 @@ main #menu-ph #menu-ph-btn-close {
         font-size: 15vw;
     }
     .pretitle {
-        bottom: 4.8rem;
+        bottom: 16vw;
+        font-size: 3vw;
     }
     .scrmore {
         bottom: 10%;
