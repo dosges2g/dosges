@@ -1,7 +1,3 @@
-
-
-
-
 $(document).ready(function() {
 
     console.log('se cargo');
@@ -254,7 +250,7 @@ $(document).ready(function() {
 
 
         var currentPage = window.location.pathname.split('/').pop();
-        if (currentPage === 'index.html') {
+        if (currentPage === 'index.html' || currentPage === '') {
             // reducir cover2
             if (scrollTop > cover2Height / 4) {
                 cover2.css('background-size', '8%');
@@ -1054,7 +1050,7 @@ $(document).ready(function() {
         $('#menu').css('height', '9.5rem');
         $('#menu').css('padding', '1.5rem 1rem');
         var currentPage = window.location.pathname.split('/').pop();
-            if (currentPage === 'index.html') {
+            if (currentPage === 'index.html' || currentPage === '') {
                 $('#projs').css('text-decoration-color', 'var(--b)');
             }else if (currentPage === 'playground.html') {
                 $('#playgr').css('text-decoration-color', 'var(--b)');
