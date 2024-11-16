@@ -1002,7 +1002,7 @@ $(document).ready(function() {
         const $newProject = $(`.col-right .${project}`);
         $newProject.removeClass('hidden');
         $newProject.css({
-            'height': '100vh',
+            'height': '100%',
             'display': 'flex',
             'flex-direction': 'column',
             'justify-content': 'space-between'
