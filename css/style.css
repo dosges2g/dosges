@@ -197,15 +197,14 @@ a span {
 
 .miniaturas {
     width: auto;
-    height: 5vh;
+    height: 3rem;
     position: fixed;
     top: 0;
-    margin: 5rem 0;
+    margin: 4.7rem 0;
     display: grid;
     opacity: 0;
     z-index: 21;
-    right: 44.8%;
-    /* transform: translateX(-50%); */
+    right: calc(50% - 5.5rem);
 }
 .miniaturas.show {
     opacity: 1;
