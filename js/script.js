@@ -4,14 +4,14 @@
 
 $(document).ready(function() {
 
-
+    console.log('se cargo');
 
 
 
     //ANIMACION LETRAS HOME
     setTimeout(() => {
         var spans = $('#dosges span, #menu span, #index a span, #about span, #menu-ph-btn span, #av-ph span');
-        spans.each(function(index) {
+        spans.each(function() {
             $(this).css('transform', 'translateY(0%)');
         });
         $('#about .proj_foto').css('opacity', '1');
@@ -46,58 +46,59 @@ $(document).ready(function() {
 
     setTimeout(() => {
         var spans = $('#avfirst span');
-        spans.each(function(index) {
+        spans.each(function() {
             $(this).css('transform', 'translateY(0%)');
         });
         $('#avfirstvid video').css('opacity', '1');
 
-        function applyFixedPosition() {
-            if ($(window).width() > 768) {
-                $('#about .ab-ontop span').css('position', 'fixed');
-                $('.ontop2').css('height', '3rem');
+        var currentPage = window.location.pathname.split('/').pop();
+        if (currentPage === 'about.html') {
+            function applyFixedPosition() {
+                if ($(window).width() > 768) {
+                    $('#about .ab-ontop span').css('position', 'fixed');
+                    $('.ontop2').css('height', '3rem');
 
-                $(window).on("scroll", function() {
-                    var $colLeft = $(".col-left");
-                    var $colRight = $(".col-right");
+                    $(window).on("scroll", function() {
+                        var $colLeft = $(".col-left");
+                        var $colRight = $(".col-right");
 
-                    var rect = $colLeft[0].getBoundingClientRect();
-                    var windowHeight = $(window).height();
+                        var rect = $colLeft[0].getBoundingClientRect();
+                        var windowHeight = $(window).height();
 
-                    if (rect.bottom < windowHeight) {
-                        $colRight.css("position", "revert-layer");
-                    } else {
-                        $colRight.css("position", "sticky");
-                    }
-                });
-            } else {
-                $('#about .ab-ontop span').css('position', '');
-                $('.ontop2').css('height', '');
+                        if (rect.bottom < windowHeight) {
+                            $colRight.css("position", "revert-layer");
+                        } else {
+                            $colRight.css("position", "sticky");
+                        }
+                    });
+                } else {
+                    $('#about .ab-ontop span').css('position', '');
+                    $('.ontop2').css('height', '');
 
-                var $projFoto = $('#about .proj_foto'); // Selecciona el elemento con la clase .proj_foto
-    var stickyTop = $projFoto.offset().top; // Obtiene la posición inicial del elemento
+                    var $projFoto = $('#about .proj_foto'); 
+                    var stickyTop = $projFoto.offset().top;
+                    $(window).on('scroll', function() {
+                        var scrollTop = $(this).scrollTop(); 
 
-    $(window).on('scroll', function() {
-        var scrollTop = $(this).scrollTop(); // Obtiene la posición de desplazamiento actual
+                        if (scrollTop >= stickyTop) {
+                            $projFoto.css({
+                                'position': 'fixed', 
+                                'margin-top': '0' 
+                            });
+                        } else {
+                            $projFoto.css({
+                                'position': 'sticky',
+                                'margin-top': '60%'
+                            });
+                        }
+                    });
+                }
+            } applyFixedPosition();
 
-        // Verifica si el scroll ha alcanzado o superado la posición del elemento
-        if (scrollTop >= stickyTop) {
-            $projFoto.css({
-                'position': 'fixed', // Cambia a position: fixed
-                'margin-top': '0' // Restablece el margin-top a 0
-            });
-        } else {
-            $projFoto.css({
-                'position': 'sticky', // Restablece a position: sticky
-                'margin-top': '60%' // Restablece el margin-top original
+            $(window).resize(function() {
+                applyFixedPosition();
             });
         }
-    });
-            }
-        } applyFixedPosition();
-
-        $(window).resize(function() {
-            applyFixedPosition();
-        });
     }, 1600);
 
 
@@ -106,7 +107,7 @@ $(document).ready(function() {
     const rows = 20;
     const cols = 20;
     const cellsAnim = $('#cellsAnim');
-    const transition = $('#transicion')
+    const transition = $('#transicion');
 
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
@@ -194,8 +195,8 @@ $(document).ready(function() {
 
     // VOLVER A HOME CON DOSGES
     $('#dosges, #projs').click(function() {
-        $('#transicion .cellT').css('display', 'block')
-        transCurtain()
+        $('#transicion .cellT').css('display', 'block');
+        transCurtain();
         setTimeout(() => {        
             if (currentProjectId) {
                 $('#' + currentProjectId).addClass('hidden');
@@ -251,7 +252,7 @@ $(document).ready(function() {
         const documentHeight = $(document).height();
         const tolerance = 5;
 
-        
+
         var currentPage = window.location.pathname.split('/').pop();
         if (currentPage === 'index.html') {
             // reducir cover2
@@ -261,7 +262,7 @@ $(document).ready(function() {
                 cover2.css('background-size', '100%');
             }
 
-            // miniaturas, title, desarrollo
+        // miniaturas, title, desarrollo
         if (backgroundSize && backgroundSize.includes('8%')) {
                 showMiniaturas();
                 cover2.css('opacity', '0');
@@ -280,7 +281,7 @@ $(document).ready(function() {
             $('.title2').css('display', 'block');
             $('.scrmore').css('opacity', '1');
         } else {
-            $('.title2').css('display', '')
+            $('.title2').css('display', '');
             $('.scrmore').css('opacity', '');
         }
 
@@ -290,7 +291,7 @@ $(document).ready(function() {
             var scrollTop = element.scrollTop();
             var scrollHeight = element[0].scrollHeight;
             var elementHeight = element.height();
-            var tolerance = 5
+            var tolerance = 5;
 
 
             if (scrollTop + elementHeight >= scrollHeight - tolerance) {
@@ -374,7 +375,7 @@ $(document).ready(function() {
         "nova_in_4.webp",
         "nova_in_5.mp4",
         "nova_in_6.mp4",
-        "nova_in_7.webp",
+        "nova_in_7.webp"
     ];
 
     const fikaMin = [
@@ -466,7 +467,7 @@ $(document).ready(function() {
         currentImageFiles = mediaFiles.map(file => file.split('/').pop());
     }
 
-    function checkVisibleProject(mutationsList, observer) {
+    function checkVisibleProject(observer) {
         const projActual = $('.fullProj:not(.hidden)');
         if (projActual.length > 0) {
 
@@ -564,17 +565,17 @@ $(document).ready(function() {
     // manejo de carrusel con hover en miniaturas
     $(document).on('mouseenter', '.miniatura', function() {
         if ($('.overlay').css('display') === 'flex') {
-        var mediaSrc;
-        if ($(this).find('video').length) {
-            mediaSrc = $(this).find('video').attr('src');
-            $('.overlay video').show().attr('src', mediaSrc); 
-            $('.overlay img').hide(); 
-        } else {
-            mediaSrc = $(this).find('img').attr('src');
-            $('.overlay img').show().attr('src', mediaSrc); 
-            $('.overlay video').hide(); 
+            var mediaSrc;
+            if ($(this).find('video').length) {
+                mediaSrc = $(this).find('video').attr('src');
+                $('.overlay video').show().attr('src', mediaSrc); 
+                $('.overlay img').hide(); 
+            } else {
+                mediaSrc = $(this).find('img').attr('src');
+                $('.overlay img').show().attr('src', mediaSrc); 
+                $('.overlay video').hide(); 
+            }
         }
-    }
     });
 
     // salir del overlay
@@ -672,7 +673,7 @@ $(document).ready(function() {
         var foto0 = $('.foto0.proj_foto');
         if (foto0.hasClass('visible')) {
             setTimeout(() => {
-                $('.txt0 div').css('opacity', '1')
+                $('.txt0 div').css('opacity', '1');
             }, 1300); 
         }
     }
@@ -781,7 +782,7 @@ $(document).ready(function() {
         }
         var nextProjectId = nextProject.attr('id');
 
-        $('#transicion .cellT').css('display', 'block')
+        $('#transicion .cellT').css('display', 'block');
         transCurtain();
         textObserver.disconnect();
         observer.disconnect();
@@ -795,7 +796,7 @@ $(document).ready(function() {
             $('#cover2').css({
                 'background-size': '100%',
                 'opacity': '1',
-                'background-image': 'url(media/' + nextProjectId + '2_cover.webp)',
+                'background-image': 'url(media/' + nextProjectId + '2_cover.webp)'
             });    
             $('.desarrollo').hide();
             $('.title2txt').css('transform', '');
@@ -805,7 +806,7 @@ $(document).ready(function() {
             startObserver();
 
             var spans = $('#dosges span, #menu span');
-            spans.each(function(index) {
+            spans.each(function() {
                 $(this).css('transform', 'translateY(100%)');
                 $(this).css('transition', 'transform 0.2s ease-in-out');
             });
@@ -815,13 +816,13 @@ $(document).ready(function() {
         }, 1400);
 
         setTimeout(() => {        
-            $('#cellsAnim .cell').css('display', 'block')
+            $('#cellsAnim .cell').css('display', 'block');
             animateCells(true);
         }, 2000);
 
         setTimeout(() => {
             var spans = $('#dosges span, #menu span');
-            spans.each(function(index) {
+            spans.each(function() {
                 $(this).css('transform', 'translateY(0%)');
                 $(this).css('transition', 'transform 1.2s ease-in-out');
             });
@@ -852,7 +853,7 @@ $(document).ready(function() {
         transCurtain();
 
         var spans = $('#index').find('span');
-        spans.each(function(index) {
+        spans.each(function() {
             $(this).css('transform', 'translateY(100%)');
             $('#index').css('pointer-events', 'none');
         });
@@ -915,7 +916,7 @@ $(document).ready(function() {
         transCurtain();
         
         var spans = $('#index').find('span');
-        spans.each(function(index) {
+        spans.each(function() {
             $(this).css('transform', 'translateY(100%)');
             $('#index').css('pointer-events', 'none');
         });
@@ -941,7 +942,7 @@ $(document).ready(function() {
     $(window).on('scroll', function() {
         const scrollPosition = $(window).scrollTop();
 
-        $('.col-left .av-proj').each(function(index) {
+        $('.col-left .av-proj').each(function() {
             const project = $(this);
             const offsetTop = project.offset().top;
             const projectHeight = project.outerHeight();
@@ -974,7 +975,7 @@ $(document).ready(function() {
         }
 
         setTimeout(() => {
-            $('#rowsAnim .row').each(function(index) {
+            $('#rowsAnim .row').each(function() {
                 $(this).css('transition', `height 0.7s ease`);
                 $(this).css('height', '0pt');
             });
@@ -1065,7 +1066,7 @@ $(document).ready(function() {
         $('#projs, #playgr, #av, #abt').css('color', 'var(--b)');
         $('#projs, #playgr, #av, #abt').css('pointer-events', 'all');
         $('main #menu-ph #menu-ph-btn-close').css('display', 'block');
-    })
+    });
 
     $('#menu-ph-btn-close').click(function() {
         $(this).hide();
@@ -1075,7 +1076,7 @@ $(document).ready(function() {
         $('#projs, #playgr, #av, #abt').css('pointer-events', '');
         $('#projs, #playgr, #av, #abt').css('text-decoration-color', 'transparent');
         $('main #menu-ph #menu-ph-btn').css('display', 'block');
-    })
+    });
 
     $('.av-ph-top .av-proj').not(':first').addClass('hidden').css('display', 'none');
     let avCurrentProject = '';
@@ -1083,7 +1084,7 @@ $(document).ready(function() {
     $(window).on('scroll', function() {
         const scrollPosition = $(window).scrollTop();
 
-        $('.av-ph-all .av-proj').each(function(index) {
+        $('.av-ph-all .av-proj').each(function() {
             const project = $(this);
             const offsetTop = project.offset().top;
             const projectHeight = project.outerHeight();
