@@ -390,8 +390,7 @@ $(document).ready(function() {
         "seguir_in_3.webp",
         "seguir_in_4.webp",
         "seguir_in_5.webp",
-        "seguir_in_6.webp",
-        "seguir_in_7.webp"
+        "seguir_in_6.webp"
     ];
 
     const rifMin = [
