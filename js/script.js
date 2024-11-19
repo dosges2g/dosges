@@ -358,10 +358,15 @@ $(document).ready(function() {
 
     const nandosMin = [
         "nandos_in_1.webp",
-        "nandos_in_2.webp",
+        "nandos_in_2.mp4",
         "nandos_in_3.webp",
         "nandos_in_4.webp",
-        "nandos_in_5.webp"
+        "nandos_in_5.mp4",
+        "nandos_in_6.webp",
+        "nandos_in_7.webp",
+        "nandos_in_8.webp",
+        "nandos_in_9.webp",
+        "nandos_in_10.webp"
     ];
 
     const novaMin = [
@@ -805,7 +810,7 @@ $(document).ready(function() {
                 $(this).css('transform', 'translateY(100%)');
                 $(this).css('transition', 'transform 0.2s ease-in-out');
             });
-
+            
             nextProject.removeClass('hidden');
 
         }, 1400);

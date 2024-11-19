@@ -397,6 +397,7 @@ section.desarrollo div.proj_txts span {
 }
 .fr1 .col-right {
     position: sticky;
+    width: 35%;
     top: 0;
     padding: 1.5rem;
     height: 100vh;
