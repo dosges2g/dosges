@@ -20,7 +20,6 @@ $(document).ready(function() {
         } else if (currentPage === 'playground.html') {
             $('#cellsAnim .cell').css('display', 'block');
             animateCells(true);
-            $('#pg-container').css('display', 'flex');
             $('#pg > div').css('opacity', '1');
             $('.pgtxt').css('color', 'rgb(147 147 147)');
         }
@@ -325,8 +324,8 @@ $(document).ready(function() {
 
     const mochaMin = [
         "mocha_in_1.webp",
-        "mocha_in_2.webp",
-        "mocha_in_3.mp4",
+        "mocha_in_2.mp4",
+        "mocha_in_3.webp",
         "mocha_in_4.webp",
         "mocha_in_5.webp",
         "mocha_in_6.webp"
