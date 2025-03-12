@@ -381,9 +381,7 @@ $(document).ready(function() {
         "jacquemus_in_1.mp4",
         "jacquemus_in_2.webp",
         "jacquemus_in_3.webp",
-        "jacquemus_in_4.webp",
-        "jacquemus_in_5.webp"
-        
+        "jacquemus_in_4.webp"        
     ];
 
     const fikaMin = [
