@@ -314,12 +314,11 @@ $(document).ready(function() {
         "loewe_in_4_0.mp4"
     ];
 
-    const querenciaMin = [
-        "querencia_in_1.webp",
-        "querencia_in_2.webp",
-        "querencia_in_3.webp",
-        "querencia_in_4.webp",
-        "querencia_in_6.webp"
+    const dualitatMin = [
+        "dualitat_in_1.webp",
+        "dualitat_in_2.webp",
+        "dualitat_in_3.webp",
+        "dualitat_in_4.webp"
     ];
 
     const mochaMin = [
@@ -378,6 +377,15 @@ $(document).ready(function() {
         "nova_in_7.webp"
     ];
 
+    const jacquemusMin = [
+        "jacquemus_in_1.mp4",
+        "jacquemus_in_2.webp",
+        "jacquemus_in_3.webp",
+        "jacquemus_in_4.webp",
+        "jacquemus_in_5.webp"
+        
+    ];
+
     const fikaMin = [
         "fika_in_1.webp",
         "fika_in_2.webp",
@@ -388,13 +396,13 @@ $(document).ready(function() {
         "fika_in_7.webp"
     ];
 
-    const seguirMin = [
-        "seguir_in_1.webp",
-        "seguir_in_2.webp",
-        "seguir_in_3.webp",
-        "seguir_in_4.webp",
-        "seguir_in_5.webp",
-        "seguir_in_6.webp"
+    const pocacpocMin = [
+        "pocacpoc_in_1.webp",
+        "pocacpoc_in_2.webp",
+        "pocacpoc_in_3.webp",
+        "pocacpoc_in_4.webp",
+        "pocacpoc_in_5.webp",
+        "pocacpoc_in_6.webp"
     ];
 
     const rifMin = [
@@ -414,8 +422,8 @@ $(document).ready(function() {
         switch (projId) {
             case 'loewe':
                 return loeweMin;
-            case 'querencia':
-                return querenciaMin;
+            case 'dualitat':
+                return dualitatMin;
             case 'mocha':
                 return mochaMin;
             case 'lukinik':
@@ -426,10 +434,12 @@ $(document).ready(function() {
                 return nandosMin;
             case 'nova':
                 return novaMin;
+            case 'jacquemus':
+                return jacquemusMin;
             case 'fika':
                 return fikaMin;
-            case 'seguir':
-                return seguirMin;
+            case 'pocacpoc':
+                return pocacpocMin;
             case 'rif':
                 return rifMin;
             default:
