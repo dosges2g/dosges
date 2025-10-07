@@ -306,6 +306,22 @@ $(document).ready(function() {
    
 
     // MINIATURAS DINAMICAS    
+    const mascheraMin = [
+        "maschera_in_1.webp",
+        "maschera_in_2.mp4",
+        "maschera_in_3.webp",
+        "maschera_in_4.webp",
+        "maschera_in_5.webp",
+        "maschera_in_6.mp4",
+        "maschera_in_7.webp",
+        "maschera_in_8.webp",
+        "maschera_in_9.webp",
+        "maschera_in_10.webp",
+        "maschera_in_11.webp",
+        "maschera_in_12.webp",
+        "maschera_in_13.mp4"
+    ];
+
     const loeweMin = [
         "loewe_in_1.webp",
         "loewe_in_2.webp",
@@ -418,6 +434,8 @@ $(document).ready(function() {
 
     function obtenerMedios(projId) {
         switch (projId) {
+            case 'maschera':
+                return mascheraMin;
             case 'loewe':
                 return loeweMin;
             case 'dualitat':
